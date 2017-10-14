@@ -1,0 +1,26 @@
+.DS_Store
+.env
+.env.*
+.env.sh
+.flow-logs
+.grunt/grunt-gh-pages
+.sass-cache
+.vscode
+/.happypack
+/dll
+/lib/*
+/npm-debug.log
+# babel server transpilation output
+# test residue
+bower_components
+config.json
+coverage/
+dist
+newrelic_agent.log
+node_modules/*
+Procfile
+stats.json
+stats.rb
+tmp
+webpack-bundle-report.txt
+yarn-error.log

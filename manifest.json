@@ -1,0 +1,14 @@
+{
+  "name": "Hull Connector",
+  "description": "",
+  "tags": ["incoming", "outgoing", "batch", "oneColumn"],
+  "ui": false,
+  "picture": "picture.png",
+  "admin": "admin.html",
+  "readme" : "readme.md",
+  "version": "0.1.10",
+  "private_settings": [],
+  "settings": [],
+  "resources": [],
+  "subscriptions" : [{ "url" : "/notify" }]
+}
