@@ -1,5 +1,5 @@
 {
-  "name": "hull-connector-archetype",
+  "name": "hull-connector",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -47,6 +47,7 @@
   "keywords": ["hull", "ship", "hull-ship"],
   "dependencies": {
     "body-parser": "^1.18.2",
+    "classnames": "^2.2.5",
     "css-loader": "^0.28.7",
     "express": "^4.16.2",
     "hull": "^0.13.0",
@@ -105,7 +106,7 @@
     "postcss-flexbugs-fixes": "^3.0.0",
     "prettier": "^1.5.2",
     "progress-bar-webpack-plugin": "^1.10.0",
-    "prop-types": "^15.6.0",
+    "prop-types": "^15.5.10",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2",
     "rimraf": "^2.6.2",

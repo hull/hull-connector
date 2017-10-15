@@ -16,7 +16,7 @@ const Container = styled.div`
 const App = ({ store }) => (
   <ThemeProvider theme={theme}>
     <Container>
-      <Title>Hull Connector Boilerplate</Title>
+      <Title>Hull Connector Boilerplate !</Title>
       <pre>{JSON.stringify(store.getState(), null, 2)}</pre>
     </Container>
   </ThemeProvider>

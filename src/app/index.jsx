@@ -1,10 +1,11 @@
 /* global document */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app';
 import { AppContainer } from 'react-hot-loader';
-import store from './app/store';
-import style from './css/index';
+import App from './App';
+import store from './store';
+import '../css/index.scss';
 
 const render = () => {
   ReactDOM.render(
@@ -15,6 +16,4 @@ const render = () => {
   );
 };
 
-render(App);
-
-if (module.hot) module.hot.accept('./app', () => render());
+export default render;

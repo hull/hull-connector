@@ -33,9 +33,21 @@ export default function devMode(app) {
   const compiler = webpack({ ...config, entry, plugins });
   app.use(
     webpackDevMiddleware(compiler, {
-      stats: { colors: true },
+      hot: true,
+      // quiet: true,
+      overlay: false,
       noInfo: false,
       lazy: false,
+      clientLogLevel: 'none',
+      watchContentBase: true,
+      stats: { colors: true },
+      watchOptions: {
+        ignored: /node_modules/
+      },
+      historyApiFallback: {
+        disableDotRule: true
+      },
+
       headers: { 'Access-Control-Allow-Origin': 'http://localhost' },
       publicPath: config.output.publicPath
     })

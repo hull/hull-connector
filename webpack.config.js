@@ -8,7 +8,7 @@ const isProduction = () => process.env.NODE_ENV === 'production';
 
 let plugins = [
   new HappyPack({
-    id: "jsx",
+    id: 'jsx',
     threads: 4,
     loaders: [
       {
@@ -76,7 +76,8 @@ module.exports = {
   },
 
   entry: {
-    admin: path.join(__dirname, 'src/index.jsx')
+    index: path.join(__dirname, 'src/index.js'),
+    ship: path.join(__dirname, 'src/ship.js')
   },
 
   output: {
