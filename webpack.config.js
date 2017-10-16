@@ -48,7 +48,6 @@ let plugins = [
       }
     ]
   }),
-  new webpack.optimize.ModuleConcatenationPlugin(),
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   new webpack.DefinePlugin({
     'process.env': {
@@ -62,6 +61,7 @@ let plugins = [
 if (isProduction()) {
   plugins = [
     ...plugins,
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compressor: { warnings: false, screw_ie8: false }
     })
