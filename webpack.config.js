@@ -88,7 +88,10 @@ module.exports = {
 
   plugins,
 
-  resolve: { extensions: ['.js', '.jsx', '.css', '.scss'] },
+  resolve: {
+    modules: [path.resolve('./src'), path.resolve('./node_modules')],
+    extensions: ['.js', '.jsx', '.css', '.scss']
+  },
 
   module: {
     rules: [
