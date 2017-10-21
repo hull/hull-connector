@@ -1,0 +1,65 @@
+{
+  "name": "<%= packageName %>",
+  "version": "1.0.0",
+  "description": "<%= packageDescription %>",
+  "main": "index.js",
+  "license": "MIT",
+  "homepage": "https://hull.io/docs",
+  "author": {
+    "name": "Hull",
+    "email": "contact@hull.io",
+    "url": "https://github.com/<%= packageGitHubOrg %>"
+  },
+  "engines": {
+    "node": "8.6.0",
+    "npm": "3.x",
+    "yarn": "1.2.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,css,scss,json}": ["p fgttier --write --single-quote", "git add"]
+  },
+  "scripts": {
+    "build": "builder run build",
+    "build:client": "builder run build:client",
+    "build:server": "builder run build:server",
+    "clean": "builder run clean",
+    "flow": "builder run flow",
+    "lint": "builder run lint",
+    "nodemon": "builder run nodemon",
+    "precommit": "builder run precommit",
+    "start": "builder run start",
+    "dev": "builder run dev",
+    "test": "builder run test",
+    "test:client": "builder run test:client",
+    "test:coverage": "builder run test:coverage",
+    "test:lint": "builder run test:lint",
+    "test:modules": "builder run test:modules",
+    "test:specs": "builder run test:specs",
+    "test:units": "builder run test:units",
+    "update": "builder run update"
+  },
+  "keywords": ["hull", "ship", "hull-ship"],
+  "dependencies": {
+    "builder": "^2.5.0",
+    "hull-connector":
+      "<%= archetype.package.version ? '^' + archetype.package.version : '*' %>",
+    "hull": "^0.13.0",
+    "lodash": "^4.17.4",
+    "classnames": "^2.2.5",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
+    "redux-actions": "^2.2.1",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "hull-connector-dev":
+      "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
+    "react-hot-loader": "^3.1.1",
+    "reactotron-react-js": "^1.12.2",
+    "reactotron-redux": "^1.12.2"
+  }
+}

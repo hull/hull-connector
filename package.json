@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
+  "description": "Hull Archetype for Connector development (Uses Builder)",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -13,27 +13,31 @@
   "engines": {
     "node": "8.6.0",
     "npm": "3.x",
-    "yarn": "1.1.0"
+    "yarn": "1.2.1"
   },
   "lint-staged": {
     "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
   },
   "scripts": {
-    "lint": "eslint src",
+    "gen-dev": "./node_modules/.bin/builder-support gen-dev",
+    "lint": "eslint src server",
     "flow": "flow",
-    "ngrok": "ngrok http 8082 --region eu --subdomain hullconnector",
+    "prettier":
+      "prettier --single-quote --trailing-comma es5 --write \"(server|src)/**/*.js\"",
     "nodemon":
       "NODE_ENV=development nodemon server/index.js --exec babel-node --watch server",
     "precommit": "lint-staged",
     "clean": "rimraf dist; rimraf lib",
     "update": "updtr",
-    "build": "yarn clean && yarn build:server && yarn build:client",
+    "build":
+      "builder run clean && builder run build:server && builder run build:client",
     "build:client":
       "NODE_ENV=production webpack --config ./webpack.config.js --progress --profile --colors -p",
     "build:server": "NODE_ENV=production babel server --copy-files -d lib",
     "start": "NODE_ENV=production node -r newrelic ./lib",
-    "start:dev": "NODE_ENV=development LOG_LEVEL=debug yarn run nodemon",
-    "test": "yarn test:lint && yarn test:units && yarn test:specs",
+    "dev": "NODE_ENV=development LOG_LEVEL=debug builder run nodemon",
+    "test":
+      "builder run test:lint && builder run test:units && builder run test:specs",
     "test:lint": "eslint server",
     "test:modules": "npm outdated --depth=0",
     "test:coverage":
@@ -47,6 +51,8 @@
   "keywords": ["hull", "ship", "hull-ship"],
   "dependencies": {
     "body-parser": "^1.18.2",
+    "boxen": "^1.2.2",
+    "chalk": "^2.2.0",
     "classnames": "^2.2.5",
     "css-loader": "^0.28.7",
     "express": "^4.16.2",
@@ -54,6 +60,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "newrelic": "^2.2.2",
+    "ngrok": "^2.2.23",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.8",
     "raven": "^2.2.1",
@@ -92,19 +99,21 @@
     "classnames": "^2.2.5",
     "eslint": "^4.8.0",
     "eslint-config-airbnb": "^16.0.0",
-    "eslint-config-prettier": "^2.3.0",
+    "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-flowtype": "^2.39.1",
+    "eslint-plugin-flowtype-errors": "^3.3.4",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jest": "^21.2.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-prettier": "^2.3.1",
     "eslint-plugin-react": "^7.4.0",
     "flow-bin": "^0.48.0",
     "happypack": "^4.0.0",
     "husky": "^0.14.2",
     "lint-staged": "^4.0.0",
+    "nodemon": "^1.12.1",
     "postcss-flexbugs-fixes": "^3.0.0",
-    "prettier": "^1.5.2",
+    "prettier": "^1.7.4",
     "progress-bar-webpack-plugin": "^1.10.0",
     "prop-types": "^15.5.10",
     "react-redux": "^5.0.6",

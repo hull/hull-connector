@@ -12,24 +12,35 @@ let plugins = [
     threads: 4,
     loaders: [
       {
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         query: {
           babelrc: false,
           presets: [['env', { modules: false }], 'react', 'stage-0'],
-          plugins: ['react-hot-loader/babel']
-        }
-      }
-    ]
+          plugins: [
+            require.resolve('react-hot-loader/babel'),
+            [
+              'replace-require',
+              { HULL_CONNECTOR: "require('hull-connector-dev/require')" },
+            ],
+          ],
+        },
+      },
+      // {
+      //   test: /\.js$/,
+      //   loader: "webpack-alternate-require-loader",
+      //   query: JSON.stringify({ "hull-connector-dev/require": require.resolve("hull-connector-dev/require") })
+      // }
+    ],
   }),
   new HappyPack({
     id: 'styles',
     threads: 2,
     loaders: [
-      { loader: 'style-loader' },
-      { loader: 'css-loader' },
-      { loader: 'sass-loader' },
+      { loader: require.resolve('style-loader') },
+      { loader: require.resolve('css-loader') },
+      { loader: require.resolve('sass-loader') },
       {
-        loader: 'postcss-loader',
+        loader: require.resolve('postcss-loader'),
         options: {
           indent: 'postcss',
           plugins: () => [
@@ -39,23 +50,23 @@ let plugins = [
                 '>1%',
                 'last 4 versions',
                 'Firefox ESR',
-                'not ie < 9' // React doesn't support IE8 anyway
+                'not ie < 9', // React doesn't support IE8 anyway
               ],
-              flexbox: 'no-2009'
-            })
-          ]
-        }
-      }
-    ]
+              flexbox: 'no-2009',
+            }),
+          ],
+        },
+      },
+    ],
   }),
   new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
       BUILD_DATE: JSON.stringify(moment().format('MMMM, DD, YYYY, HH:mm:ss')),
-      GIT_COMMIT: JSON.stringify(process.env.CIRCLE_SHA1 || '')
-    }
-  })
+      GIT_COMMIT: JSON.stringify(process.env.CIRCLE_SHA1 || ''),
+    },
+  }),
 ];
 
 if (isProduction()) {
@@ -63,8 +74,8 @@ if (isProduction()) {
     ...plugins,
     new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false, screw_ie8: false }
-    })
+      compressor: { warnings: false, screw_ie8: false },
+    }),
   ];
 }
 
@@ -72,46 +83,52 @@ module.exports = {
   devtool: isProduction() ? 'source-map' : 'inline-source-map',
 
   performance: {
-    hints: isProduction() ? 'warning' : false
+    hints: isProduction() ? 'warning' : false,
   },
 
   entry: {
-    index: path.join(__dirname, 'src/index.js'),
-    ship: path.join(__dirname, 'src/ship.js')
+    index: path.join(process.cwd(), 'src/index.js'),
+    ship: path.join(process.cwd(), 'src/ship.js'),
   },
 
   output: {
-    path: path.join(__dirname, '/dist/'),
+    path: path.join(process.cwd(), '/dist/'),
     filename: '[name].js',
-    publicPath: '/'
+    publicPath: '/',
   },
 
   plugins,
 
   resolve: {
-    modules: [path.resolve('./src'), path.resolve('./node_modules')],
-    extensions: ['.js', '.jsx', '.css', '.scss']
+    modules: [process.cwd() + '/src', 'node_modules'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
+  },
+
+  resolveLoader: {
+    modules: ['node_modules', process.cwd() + '/node_modules'],
   },
 
   module: {
     rules: [
       {
         test: /\.jsx|\.js$/,
-        loader: 'happypack/loader?id=jsx',
-        exclude: /node_modules/
+        loader: require.resolve('happypack/loader'),
+        query: { id: 'jsx' },
+        exclude: /node_modules/,
       },
       // styles
       {
         test: /\.(css|scss)$/,
-        loader: 'happypack/loader?id=styles'
+        loader: require.resolve('happypack/loader'),
+        query: { id: 'styles' },
       },
       // svg
       { test: /.svg$/, loader: 'svg-inline-loader' },
       // images & other files
       {
         test: /\.jpe?g$|\.gif$|\.png|\.woff$|\.ttf$|\.wav$|\.mp3$/,
-        loader: 'file-loader'
-      }
-    ]
-  }
+        loader: 'file-loader',
+      },
+    ],
+  },
 };
