@@ -20,6 +20,7 @@
   "plugins": [
     "prettier",
     "jest",
+    "flowtype-errors",
     "flowtype",
     "react"
   ],
@@ -34,11 +35,9 @@
     "es6": true
   },
   "rules": {
-    "prettier/prettier": ["error", {
-      "singleQuote": true
-    }],
+    "prettier/prettier": ["error", { "singleQuote": true }],
     "flowtype-errors/show-errors": [2],
-    "comma-dangle": [0],
+    "comma-dangle": ["error", "never"],
     "max-len": [0],
     "camelcase": [1],
     "arrow-parens": [0],

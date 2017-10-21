@@ -23,8 +23,6 @@ let plugins = [
       {
         loader: require.resolve('babel-loader'),
         query: {
-          babelrc: false,
-          presets: [['env', { modules: false }], 'react', 'stage-0'],
           plugins: [
             require.resolve('react-hot-loader/babel'),
             [
@@ -34,11 +32,6 @@ let plugins = [
           ],
         },
       },
-      // {
-      //   test: /\.js$/,
-      //   loader: "webpack-alternate-require-loader",
-      //   query: JSON.stringify({ "hull-connector-dev/require": require.resolve("hull-connector-dev/require") })
-      // }
     ],
   }),
   new HappyPack({
@@ -68,7 +61,7 @@ let plugins = [
       },
     ],
   }),
-  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+  new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
   new webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -76,6 +69,7 @@ let plugins = [
       GIT_COMMIT: JSON.stringify(process.env.CIRCLE_SHA1 || ''),
     },
   }),
+  new webpack.SourceMapDevToolPlugin({ filename: '[file].map' }),
 ];
 
 if (isProduction()) {

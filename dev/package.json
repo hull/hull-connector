@@ -19,6 +19,16 @@
   "lint-staged": {
     "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
   },
+  "nodemonConfig": {
+    "verbose": true,
+    "restartable": "rst",
+    "execMap": {
+      "js": "babel-node",
+      "jsx": "babel-node",
+      "ext": "js jsx json",
+      "watch": ["src", "server"]
+    }
+  },
   "scripts": {},
   "keywords": ["hull", "ship", "hull-ship"],
   "dependencies": {},

@@ -17,7 +17,5 @@
     "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
   },
   "testEnvironment": "node",
-  "transformIgnorePatterns": [
-    "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
-  ]
+  "transformIgnorePatterns": ["[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"]
 }

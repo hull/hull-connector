@@ -5,6 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
+  "keywords": ["hull", "ship", "hull-ship"],
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",
@@ -18,14 +19,22 @@
   "lint-staged": {
     "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
   },
+  "nodemonConfig": {
+    "verbose": true,
+    "restartable": "rst",
+    "execMap": {
+      "js": "babel-node",
+      "jsx": "babel-node",
+      "ext": "js jsx json",
+      "watch": ["src", "server"]
+    }
+  },
   "scripts": {
     "gen-dev": "./node_modules/.bin/builder-support gen-dev",
-    "lint": "eslint src server",
+    "lint": "eslint --color -c config/eslint/.eslintrc src server",
     "flow": "flow",
     "prettier":
-      "prettier --single-quote --trailing-comma es5 --write \"(server|src)/**/*.js\"",
-    "nodemon":
-      "NODE_ENV=development nodemon server/index.js --exec babel-node --watch server",
+      "prettier --single-quote --trailing-comma es5 --write \"src/**/*.js\" --write \"server/**/*.js\"",
     "precommit": "lint-staged",
     "clean": "rimraf dist; rimraf lib",
     "update": "updtr",
@@ -35,8 +44,8 @@
       "NODE_ENV=production webpack --bail --config node_modules/hull-connector/config/webpack.config.js --progress --profile --colors",
     "build:server": "NODE_ENV=production babel server --copy-files -d lib",
     "start": "NODE_ENV=production node -r newrelic ./lib",
-    "dev": "NODE_ENV=development LOG_LEVEL=debug builder run nodemon",
-    "test":
+    "dev": "babel-watch -w server -w src server/index.js",
+    "npm:test":
       "builder run test:lint && builder run test:units && builder run test:specs",
     "test:lint": "eslint server",
     "test:modules": "npm outdated --depth=0",
@@ -48,7 +57,6 @@
     "test:specs":
       "NODE_ENV=test mocha --require babel-register -R spec ./tests/integration/*.js"
   },
-  "keywords": ["hull", "ship", "hull-ship"],
   "dependencies": {
     "body-parser": "^1.18.2",
     "boxen": "^1.2.2",
@@ -89,10 +97,11 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
-    "babel-watch": "^2.0.6",
+    "babel-watch": "^2.0.7",
     "builder": "^3.2.3",
     "builder-support": "^0.5.0",
     "chai": "^4.1.2",

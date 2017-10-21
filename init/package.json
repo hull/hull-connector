@@ -4,7 +4,8 @@
   "description": "<%= packageDescription %>",
   "main": "index.js",
   "license": "MIT",
-  "homepage": "https://hull.io/docs",
+  "homepage": "https://github.com/<%= packageGitHubOrg %>",
+  "keywords": ["hull", "ship", "hull-ship"],
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",
@@ -16,29 +17,31 @@
     "yarn": "1.2.1"
   },
   "lint-staged": {
-    "*.{js,jsx,css,scss,json}": ["p fgttier --write --single-quote", "git add"]
+    "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
   },
   "scripts": {
     "build": "builder run build",
     "build:client": "builder run build:client",
     "build:server": "builder run build:server",
+
     "clean": "builder run clean",
+    "prettier": "builder run prettier",
     "flow": "builder run flow",
     "lint": "builder run lint",
-    "nodemon": "builder run nodemon",
     "precommit": "builder run precommit",
-    "start": "builder run start",
-    "dev": "builder run dev",
-    "test": "builder run test",
+    "update": "builder run update",
+
     "test:client": "builder run test:client",
     "test:coverage": "builder run test:coverage",
     "test:lint": "builder run test:lint",
     "test:modules": "builder run test:modules",
     "test:specs": "builder run test:specs",
     "test:units": "builder run test:units",
-    "update": "builder run update"
+
+    "start": "builder run start",
+    "dev": "builder run dev",
+    "test": "builder run npm:test"
   },
-  "keywords": ["hull", "ship", "hull-ship"],
   "dependencies": {
     "builder": "^2.5.0",
     "hull-connector":
@@ -58,7 +61,6 @@
   "devDependencies": {
     "hull-connector-dev":
       "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
-    "react-hot-loader": "^3.1.1",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2"
   }
