@@ -32,7 +32,7 @@
     "build":
       "builder run clean && builder run build:server && builder run build:client",
     "build:client":
-      "NODE_ENV=production webpack --config ./webpack.config.js --progress --profile --colors -p",
+      "NODE_ENV=production webpack --bail --config node_modules/hull-connector/config/webpack.config.js --progress --profile --colors",
     "build:server": "NODE_ENV=production babel server --copy-files -d lib",
     "start": "NODE_ENV=production node -r newrelic ./lib",
     "dev": "NODE_ENV=development LOG_LEVEL=debug builder run nodemon",
@@ -117,6 +117,7 @@
     "progress-bar-webpack-plugin": "^1.10.0",
     "prop-types": "^15.5.10",
     "react-redux": "^5.0.6",
+    "reactotron": "^0.9.0",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2",
     "redux-promise": "^0.5.3",
@@ -126,6 +127,7 @@
     "svg-inline-loader": "^0.8.0",
     "updtr": "^2.0.0",
     "webpack": "^3.7.1",
+    "webpack-alternate-require-loader": "^0.0.3",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.19.1"
   }

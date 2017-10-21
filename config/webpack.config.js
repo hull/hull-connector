@@ -12,6 +12,15 @@ let plugins = [
     threads: 4,
     loaders: [
       {
+        test: /\.js$/,
+        loader: require.resolve('webpack-alternate-require-loader'),
+        query: JSON.stringify({
+          'hull-connector-dev/require': require.resolve(
+            'hull-connector-dev/require'
+          ),
+        }),
+      },
+      {
         loader: require.resolve('babel-loader'),
         query: {
           babelrc: false,
@@ -100,12 +109,12 @@ module.exports = {
   plugins,
 
   resolve: {
-    modules: [process.cwd() + '/src', 'node_modules'],
+    modules: [`${process.cwd()}/src`, 'node_modules'],
     extensions: ['.js', '.jsx', '.css', '.scss'],
   },
 
   resolveLoader: {
-    modules: ['node_modules', process.cwd() + '/node_modules'],
+    modules: ['node_modules', `${process.cwd()}/node_modules`],
   },
 
   module: {

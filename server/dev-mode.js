@@ -5,7 +5,7 @@ export default function devMode(app, options) {
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const ProgressBarPlugin = require('progress-bar-webpack-plugin');
   const AssetsWebpackPlugin = require('assets-webpack-plugin');
-  const config = require('hull-connector/webpack.config');
+  const config = require('hull-connector/config/webpack.config');
 
   const entry = _.reduce(
     config.entry,
