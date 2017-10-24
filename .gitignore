@@ -16,7 +16,6 @@
 /build
 /coverage
 /dll
-/lib/*
 /node_modules
 /npm-debug.log
 bower_components
