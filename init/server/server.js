@@ -1,5 +1,5 @@
 import express from 'express';
-import { devMode, errorHandler } from 'hull-connector/lib';
+import { devMode, errorHandler } from 'hull-connector';
 import { statusHandler, notifyHandler } from './handlers';
 
 export default function Server(options = {}) {

@@ -2,10 +2,11 @@
   "name": "hull-connector-dev",
   "description":
     "Hull Archetype for Connector development (Uses Builder) (Development)",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
+  "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
+  "keywords": ["hull", "ship", "hull-ship"],
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",
@@ -19,18 +20,7 @@
   "lint-staged": {
     "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
   },
-  "nodemonConfig": {
-    "verbose": true,
-    "restartable": "rst",
-    "execMap": {
-      "js": "babel-node",
-      "jsx": "babel-node",
-      "ext": "js jsx json",
-      "watch": ["src", "server"]
-    }
-  },
   "scripts": {},
-  "keywords": ["hull", "ship", "hull-ship"],
   "dependencies": {},
   "devDependencies": {},
   "peerDependencies": {}

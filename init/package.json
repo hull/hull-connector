@@ -38,17 +38,20 @@
     "test:specs": "builder run test:specs",
     "test:units": "builder run test:units",
 
-    "start": "builder run start",
+    "start": "NODE_ENV=production node -r newrelic ./lib",
     "dev": "builder run dev",
     "test": "builder run npm:test"
   },
   "dependencies": {
-    "builder": "^2.5.0",
+    "bluebird": "^3.5.1",
+    "builder": "^3.2.3",
+    "classnames": "^2.2.5",
+    "css": "^2.2.1",
+    "express": "^4.16.2",
+    "hull": "^0.13.0",
     "hull-connector":
       "<%= archetype.package.version ? '^' + archetype.package.version : '*' %>",
-    "hull": "^0.13.0",
     "lodash": "^4.17.4",
-    "classnames": "^2.2.5",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
@@ -61,6 +64,7 @@
   "devDependencies": {
     "hull-connector-dev":
       "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
+    "react-hot-loader": "^3.1.1",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2"
   }

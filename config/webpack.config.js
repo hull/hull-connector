@@ -12,15 +12,6 @@ let plugins = [
     threads: 4,
     loaders: [
       {
-        test: /\.js$/,
-        loader: require.resolve('webpack-alternate-require-loader'),
-        query: JSON.stringify({
-          'hull-connector-dev/require': require.resolve(
-            'hull-connector-dev/require'
-          ),
-        }),
-      },
-      {
         loader: require.resolve('babel-loader'),
         query: {
           plugins: [
@@ -31,6 +22,14 @@ let plugins = [
             ],
           ],
         },
+      },
+      {
+        loader: require.resolve('webpack-alternate-require-loader'),
+        query: JSON.stringify({
+          'hull-connector-dev/require': require.resolve(
+            'hull-connector-dev/require'
+          ),
+        }),
       },
     ],
   }),

@@ -1,11 +1,12 @@
 {
   "presets": [
     "env",
+    "react",
     "stage-0",
     "flow"
   ],
   "plugins": [
-    ["replace-require", { "DEV_ARCHETYPE": "require('hull-connector-dev/require')" }]
+    ["replace-require", { "HULL_CONNECTOR": "require('hull-connector-dev/require')" }]
   ],
   "ignore": [
     "specs"

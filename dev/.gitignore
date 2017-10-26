@@ -16,7 +16,6 @@
 /build
 /coverage
 /dll
-/lib/*
 /node_modules
 /npm-debug.log
 bower_components
@@ -24,7 +23,6 @@ config.json
 coverage/
 dist
 newrelic_agent.log
-node_modules/*
 npm-debug.log*
 Procfile
 stats.json

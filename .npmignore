@@ -21,7 +21,6 @@
 bower_components
 config.json
 coverage/
-dist
 newrelic_agent.log
 npm-debug.log*
 Procfile
