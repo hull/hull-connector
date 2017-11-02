@@ -1,4 +1,6 @@
+const glob = require('glob');
 const path = require('path');
+const _ = require('lodash');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HappyPack = require('happypack');
@@ -81,6 +83,15 @@ if (isProduction()) {
   ];
 }
 
+const entry = _.reduce(
+  glob.sync(path.join(process.cwd(), 'src/*.js')),
+  (m, v) => {
+    m[v.split('/').pop().replace('.js', '')] = v;
+    return m;
+  },
+  {}
+);
+
 module.exports = {
   devtool: isProduction() ? 'source-map' : 'inline-source-map',
 
@@ -88,10 +99,7 @@ module.exports = {
     hints: isProduction() ? 'warning' : false,
   },
 
-  entry: {
-    index: path.join(process.cwd(), 'src/index.js'),
-    ship: path.join(process.cwd(), 'src/ship.js'),
-  },
+  entry,
 
   output: {
     path: path.join(process.cwd(), '/dist/'),

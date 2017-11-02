@@ -65,3 +65,9 @@ hull-connector-1.0.1.tgz
 yarn gen-dev;
 npm link ; cd dev ; npm link
 ```
+
+
+## Setup
+
+- Will monitor, bundle and build all `.js` files in the `src` folder for Client-side code
+- Will build the `server` folder as `lib` for Server-side code
