@@ -1,7 +1,7 @@
 {
   "name": "hull-connector-dev",
   "description": "Hull Archetype for Connector development (Uses Builder) (Development)",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -22,6 +22,7 @@
   "scripts": {},
   "dependencies": {
     "babel-jest": "^21.2.0",
+    "babel-polyfill": "^6.26.0",
     "babel-watch": "^2.0.7",
     "boxen": "^1.2.2",
     "chai": "^4.1.2",

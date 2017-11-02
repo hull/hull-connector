@@ -6,7 +6,14 @@
     "flow"
   ],
   "plugins": [
-    ["replace-require", { "HULL_CONNECTOR": "require('hull-connector-dev/require')" }]
+    [
+      "transform-runtime",
+      { "polyfill": false, "regenerator": true }
+    ],
+    [
+      "replace-require",
+      { "HULL_CONNECTOR": "require('hull-connector-dev/require')" }
+    ]
   ],
   "ignore": [
     "specs"

@@ -51,7 +51,10 @@ hull-connector-1.0.1.tgz
  - hull-test/src/app/reducers/index.js
 
 [builder-init] New hull-connector project is ready at: hull-test
+```
 
+## Usage
+```
 ~/test ❯❯❯ cd hull-test
 ~/test ❯❯❯ yarn
 ~/test ❯❯❯ yarn dev   //Start development server
@@ -65,7 +68,6 @@ hull-connector-1.0.1.tgz
 yarn gen-dev;
 npm link ; cd dev ; npm link
 ```
-
 
 ## Setup
 
