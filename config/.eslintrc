@@ -37,7 +37,7 @@
     "es6": true
   },
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true }],
+    "prettier/prettier": ["error", { "singleQuote": false }],
     "flowtype-errors/show-errors": [2],
     "comma-dangle": ["error", "never"],
     "max-len": [0],
