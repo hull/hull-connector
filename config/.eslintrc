@@ -13,6 +13,8 @@
   },
   "extends": [
     "prettier",
+    "plugin:import/errors",
+    "plugin:import/warnings",
     "plugin:jest/recommended",
     "plugin:flowtype/recommended",
     "airbnb"
