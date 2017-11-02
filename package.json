@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Archetype for Connector development (Uses Builder)",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -21,6 +21,7 @@
   },
   "scripts": {
     "gen-dev": "./node_modules/.bin/builder-support gen-dev",
+    "publish:both": "npm publish ; npm publish dev",
     "lint": "eslint --color -c config/eslint/.eslintrc src server",
     "flow": "flow",
     "clean": "rimraf dist; rimraf lib",
@@ -31,7 +32,7 @@
     "build": "builder run clean && builder run build:server && builder run build:client",
     "build:server": "NODE_ENV=production npx babel server --copy-files -d lib",
     "build:client": "NODE_ENV=production npx webpack --config ./node_modules/hull-connector/config/webpack.config.js",
-    "dev": "babel-watch -w server -w src server/index.js",
+    "dev": "NODE_ENV=development babel-watch -w server -w src server/index.js",
     "npm:test": "builder run test:lint && builder run test:units && builder run test:specs",
     "test:lint": "eslint server",
     "test:modules": "npm outdated --depth=0",
