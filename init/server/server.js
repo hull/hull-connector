@@ -1,5 +1,5 @@
 import express from 'express';
-import { devMode, errorHandler } from 'hull-connector';
+import { errorHandler } from 'hull-connector';
 import { statusHandler, notifyHandler } from './handlers';
 
 export default function Server(options = {}) {
@@ -8,7 +8,10 @@ export default function Server(options = {}) {
 
   const connector = new Hull.Connector(options);
 
-  if (options.devMode) devMode(app, options);
+  if (options.devMode) {
+    const { devMode } = require('hull-connector-dev');
+    devMode(app, options);
+  }
   connector.setupApp(app);
 
   app.post('/batch', notifyHandler);
