@@ -23,22 +23,20 @@
     "build": "builder run build",
     "build:client": "builder run build:client",
     "build:server": "builder run build:server",
-
     "clean": "builder run clean",
     "prettier": "builder run prettier",
     "flow": "builder run flow",
     "lint": "builder run lint",
     "precommit": "builder run precommit",
+    "postinstall": "builder --expand-archetype run build",
     "update": "builder run update",
-
     "test:client": "builder run test:client",
     "test:coverage": "builder run test:coverage",
     "test:lint": "builder run test:lint",
     "test:modules": "builder run test:modules",
     "test:specs": "builder run test:specs",
     "test:units": "builder run test:units",
-
-    "start": "NODE_ENV=production node -r newrelic ./lib",
+    "start": "NODE_ENV=production node -r newrelic lib",
     "dev": "builder run dev",
     "test": "builder run npm:test"
   },
@@ -49,8 +47,7 @@
     "css": "^2.2.1",
     "express": "^4.16.2",
     "hull": "^0.13.0",
-    "hull-connector":
-      "<%= archetype.package.version ? '^' + archetype.package.version : '*' %>",
+    "hull-connector": "<%= archetype.package.version ? '^' + archetype.package.version : '*' %>",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -62,8 +59,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "hull-connector-dev":
-      "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
+    "hull-connector-dev": "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
     "react-hot-loader": "^3.1.1",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2"

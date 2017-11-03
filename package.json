@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
-  "description": "Hull Archetype for Connector development (Uses Builder)",
-  "version": "1.0.12",
+  "description": "Hull Connector Archetype (Uses Builder)",
+  "version": "1.0.16",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -20,13 +20,17 @@
   },
   "scripts": {
     "gen-dev": "./node_modules/.bin/builder-support gen-dev",
-    "publish:both": "npm publish ; npm publish dev",
+    "publish:both": "npm run gen-dev ; npm publish ; npm publish dev",
     "lint": "eslint --color -c config/eslint/.eslintrc src server",
     "flow": "flow",
     "clean": "rimraf dist; rimraf lib",
     "update": "npm-check",
     "precommit": "lint-staged",
-    "prepare": "NODE_ENV=production babel lib --copy-files -d dist",
+    "npm:postinstall": "builder --env='{\"NODE_ENV\":\"production\"}' run build",
+    "prepare": "npm run prepare:dev; npm run prepare:prod",
+    "prepare:dev": "NODE_ENV=production babel dev/lib --copy-files -d dev/dist",
+    "prepare:prod": "NODE_ENV=production babel lib --copy-files -d dist",
+    "prepare": "npm run prepare:dev; npm run prepare:prod",
     "prettier": "prettier --single-quote --trailing-comma es5 --write \"src/**/*.js\" --write \"server/**/*.js\"",
     "build": "builder run clean && builder run build:server && builder run build:client",
     "build:server": "NODE_ENV=production npx babel server --copy-files -d lib",
@@ -76,5 +80,8 @@
     "webpack": "^3.8.1",
     "webpack-alternate-require-loader": "^0.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "npm-check": "^5.5.1",
+    "rimraf": "^2.6.2"
+  }
 }
