@@ -13,8 +13,7 @@
   },
   "engines": {
     "node": "8.6.0",
-    "npm": "3.x",
-    "yarn": "1.2.1"
+    "npm": "3.x"
   },
   "lint-staged": {
     "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
@@ -48,6 +47,7 @@
     "express": "^4.16.2",
     "hull": "^0.13.0",
     "hull-connector": "<%= archetype.package.version ? '^' + archetype.package.version : '*' %>",
+    "hull-connector-dev": "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
     "lodash": "^4.17.4",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -59,7 +59,6 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "hull-connector-dev": "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
     "react-hot-loader": "^3.1.1",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2"

@@ -3,14 +3,20 @@ import { notifHandler } from 'hull/lib/utils';
 
 const notify = notifHandler({
   handlers: {
-    'user:update': ({ ship, client: hull }, messages = []) => {
-      return Promise.all(
-        messages.map(message => {
-          message.user = hull.utils.groupTraits(message.user);
-          message.user.account = hull.utils.groupTraits(message.user.account);
-          return { message, ship, hull };
-        })
-      );
+    'user:update': (
+      { smartNotifierResponse, ship, client: hull },
+      messages = []
+    ) => {
+      messages.map(message => {
+        console.log(message);
+      });
+      // Get 100 users every 100ms at most.
+      smartNotifierResponse.setFlowControl({
+        type: 'next',
+        size: 100,
+        in: 100,
+      });
+      return Promise.resolve();
     },
   },
 });

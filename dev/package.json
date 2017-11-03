@@ -1,7 +1,7 @@
 {
   "name": "hull-connector-dev",
   "description": "Hull Connector Archetype (Uses Builder) (Development)",
-  "version": "1.0.17",
+  "version": "1.0.20",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -26,6 +26,7 @@
     "boxen": "^1.2.2",
     "chai": "^4.1.2",
     "chalk": "^2.3.0",
+    "dotenv": "^4.0.0",
     "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.6.0",
