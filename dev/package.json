@@ -1,7 +1,7 @@
 {
   "name": "hull-connector-dev",
   "description": "Hull Archetype for Connector development (Uses Builder) (Development)",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
