@@ -1,6 +1,8 @@
 import Hull from 'hull';
 import server from './server';
 import pkg from '../package.json';
+import { config } from 'dotenv';
+config();
 
 const {
   SECRET = '1234',
