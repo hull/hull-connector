@@ -20,7 +20,10 @@ let plugins = [
             require.resolve('react-hot-loader/babel'),
             [
               'replace-require',
-              { HULL_CONNECTOR: "require('hull-connector-dev/require')" },
+              {
+                HULL_CONNECTOR: "require('hull-connector/require')",
+                HULL_CONNECTOR_DEV: "require('hull-connector-dev/require')",
+              },
             ],
           ],
         },
