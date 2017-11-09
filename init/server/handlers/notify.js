@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
-import { notifHandler } from 'hull/lib/utils';
+import { smartNotifierHandler } from 'hull/lib/utils';
 
-const notify = notifHandler({
+const notify = smartNotifierHandler({
   handlers: {
     'user:update': (
       { smartNotifierResponse, ship, client: hull },

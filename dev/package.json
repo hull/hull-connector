@@ -1,7 +1,7 @@
 {
   "name": "hull-connector-dev",
   "description": "Hull Connector Archetype (Uses Builder) (Development)",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -12,7 +12,7 @@
     "url": "https://github.com/hull"
   },
   "engines": {
-    "node": "8.6.0",
+    "node": "8.x",
     "npm": "3.x"
   },
   "lint-staged": {

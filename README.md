@@ -5,7 +5,7 @@ We use [Builder](http://formidable.com/open-source/builder/)
 ## Installing
 
 ```
-~/test ❯❯❯ yarn global add builder-init hull-connector hull-connector-dev;
+~/test ❯❯❯ yarn global add builder builder-init
 ~/test ❯❯❯ builder-init hull-connector;
 ```
 
@@ -56,6 +56,7 @@ hull-connector-1.0.1.tgz
 ## Usage
 ```
 ~/test ❯❯❯ cd hull-test
+~/test ❯❯❯ nvm use 8
 ~/test ❯❯❯ yarn
 ~/test ❯❯❯ yarn dev   //Start development server
 ~/test ❯❯❯ yarn build //Build project
@@ -67,6 +68,14 @@ hull-connector-1.0.1.tgz
 ```
 yarn gen-dev;
 npm link ; cd dev ; npm link
+```
+
+## Publishing the archetype
+
+```
+# Bump version in package.json
+yarn gen-dev;
+npm run publish:both
 ```
 
 ## Setup

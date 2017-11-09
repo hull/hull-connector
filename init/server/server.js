@@ -9,13 +9,13 @@ export default function Server(options = {}) {
   const connector = new Hull.Connector(options);
 
   if (options.devMode) {
-    const { devMode } = require('hull-connector-dev');
+    const { devMode } = require('hull-connector');
     devMode(app, options);
   }
   connector.setupApp(app);
 
   app.post('/batch', notifyHandler);
-  app.post('/notify', notifyHandler);
+  app.post('/smart-notifier', notifyHandler);
   app.all('/status', statusHandler);
 
   // Error Handler
