@@ -12,7 +12,7 @@
     "url": "https://github.com/<%= packageGitHubOrg %>"
   },
   "engines": {
-    "node": "8.6.0",
+    "node": "8.x",
     "npm": "3.x"
   },
   "lint-staged": {
