@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Connector Archetype (Uses Builder)",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -75,6 +75,7 @@
     "request": "^2.83.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
+    "svg-inline-loader": "^0.8.0",
     "webpack": "^3.8.1",
     "webpack-alternate-require-loader": "^0.0.3"
   },
