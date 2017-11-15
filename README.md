@@ -74,7 +74,6 @@ npm link ; cd dev ; npm link
 
 ```
 # Bump version in package.json
-yarn gen-dev;
 npm run publish:both
 ```
 
