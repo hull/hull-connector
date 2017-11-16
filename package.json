@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Connector Archetype (Uses Builder)",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -32,7 +32,7 @@
     "build": "builder run clean && builder run build:server && builder run build:client",
     "build:server": "NODE_ENV=production babel server --copy-files -d lib",
     "build:client": "NODE_ENV=production webpack --config ./node_modules/hull-connector/config/webpack.config.js",
-    "dev": "NODE_ENV=development babel-watch -w server -w src server/index.js",
+    "dev": "NODE_ENV=development babel-watch -w server server/index.js",
     "npm:test": "builder run test:lint && builder run test:units && builder run test:specs",
     "test:lint": "eslint server",
     "test:modules": "npm outdated --depth=0",
