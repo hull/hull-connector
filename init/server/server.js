@@ -1,8 +1,8 @@
-import express from 'express';
-import { errorHandler } from 'hull-connector';
-import { statusHandler, notifyHandler } from './handlers';
+const express = require("express");
+const { errorHandler } = require("hull-connector");
+const { statusHandler, notifyHandler } = require("./handlers");
 
-export default function Server(options = {}) {
+function server(options = {}) {
   const app = express();
   const { Hull } = options;
 
@@ -18,8 +18,12 @@ export default function Server(options = {}) {
   app.post('/smart-notifier', notifyHandler);
   app.all('/status', statusHandler);
 
+  connector.startApp(app);
+
   // Error Handler
   app.use(errorHandler);
-  connector.startApp(app);
+
   return app;
 }
+
+module.exports = server;

@@ -1,5 +1,5 @@
-import Promise from 'bluebird';
-import { smartNotifierHandler } from 'hull/lib/utils';
+const Promise = require("bluebird";
+const { smartNotifierHandler, notifyHandler } = require("hull/lib/utils");
 
 const notify = smartNotifierHandler({
   handlers: {
@@ -21,4 +21,4 @@ const notify = smartNotifierHandler({
   },
 });
 
-export default notify;
+module.exports = notify;
