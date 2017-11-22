@@ -1,2 +1,4 @@
-export statusHandler from './status';
-export notifyHandler from './notify';
+module.exports = {
+  statusHandler: require("./status"),
+  notifyHandler: require("./notify")
+};

@@ -1,8 +1,6 @@
-import Hull from 'hull';
-import server from './server';
-import pkg from '../package.json';
-import { dotEnv } from 'hull-connector';
-dotEnv();
+const Hull = require("hull");
+const server = require("./server");
+const pkg = require("../package.json");
 
 const {
   SECRET = '1234',

@@ -12,8 +12,9 @@
     "url": "https://github.com/<%= packageGitHubOrg %>"
   },
   "engines": {
-    "node": "8.x",
-    "npm": "3.x"
+    "node": "8.9.x",
+    "npm": "5.5.x",
+    "yarn": "1.3.x"
   },
   "lint-staged": {
     "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
@@ -31,13 +32,15 @@
     "update": "builder run update",
     "test:client": "builder run test:client",
     "test:coverage": "builder run test:coverage",
+    "test:flow": "builder run test:flow",
     "test:lint": "builder run test:lint",
     "test:modules": "builder run test:modules",
     "test:specs": "builder run test:specs",
     "test:units": "builder run test:units",
     "start": "NODE_ENV=production node -r newrelic lib",
     "dev": "builder run dev",
-    "test": "builder run npm:test"
+    "test": "builder run npm:test",
+    "repl": "builder run npm:repl"
   },
   "dependencies": {
     "bluebird": "^3.5.1",
@@ -59,6 +62,10 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "hull-connector-tester": "^0.1.1",
+    "flow-bin": "^0.59.0",
+    "flow-typed": "^2.2.3",
     "react-hot-loader": "^3.1.1",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2"

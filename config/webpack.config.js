@@ -16,6 +16,12 @@ let plugins = [
       {
         loader: require.resolve('babel-loader'),
         query: {
+          presets: [
+            "env",
+            "react",
+            "stage-0",
+            "flow"
+          ],
           plugins: [
             require.resolve('react-hot-loader/babel'),
             [

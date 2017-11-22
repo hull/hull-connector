@@ -1,11 +1,13 @@
 {
   "presets": [
-    "env",
-    "react",
-    "stage-0",
-    "flow"
+    ["env", {
+      "targets": {
+        "node": "8.9"
+      }
+    }]
   ],
   "plugins": [
+    "transform-flow-strip-types",
     [
       "transform-runtime",
       { "polyfill": false, "regenerator": true }
@@ -17,6 +19,6 @@
     ]
   ],
   "ignore": [
-    "specs"
+    "test/integration"
   ]
 }

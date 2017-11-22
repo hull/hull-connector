@@ -5,7 +5,11 @@
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
-  "keywords": ["hull", "ship", "hull-ship"],
+  "keywords": [
+    "hull",
+    "ship",
+    "hull-ship"
+  ],
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",
@@ -16,14 +20,17 @@
     "npm": "3.x"
   },
   "lint-staged": {
-    "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
+    "*.{js,jsx,css,scss,json}": [
+      "prettier --write --single-quote",
+      "git add"
+    ]
   },
   "scripts": {
     "gen-dev": "./node_modules/.bin/builder-support gen-dev",
     "publish:both": "npm run gen-dev ; npm run prepare ; npm publish ; npm publish dev",
     "lint": "eslint --color -c config/eslint/.eslintrc src server",
-    "flow": "flow",
     "clean": "rimraf dist; rimraf lib",
+    "repl": "hull-repl",
     "update": "npm-check",
     "precommit": "lint-staged",
     "npm:postinstall": "builder --env='{\"NODE_ENV\":\"production\"}' run build",
@@ -32,14 +39,15 @@
     "build": "builder run clean && builder run build:server && builder run build:client",
     "build:server": "NODE_ENV=production babel server --copy-files -d lib",
     "build:client": "NODE_ENV=production webpack --config ./node_modules/hull-connector/config/webpack.config.js",
-    "dev": "NODE_ENV=development babel-watch -w server server/index.js",
-    "npm:test": "builder run test:lint && builder run test:units && builder run test:specs",
+    "dev": "NODE_ENV=development dotenv babel-watch -w server server/index.js",
+    "npm:test": "builder run test:lint && builder run test:unit && builder run test:integration",
+    "test:flow": "flow check",
     "test:lint": "eslint server",
     "test:modules": "npm outdated --depth=0",
     "test:coverage": "NODE_ENV=test jest --env=jsdom --config=jest.config.json --coverage",
     "test:client": "NODE_ENV=test jest --env=jsdom --config=jest.config.json",
-    "test:units": "NODE_ENV=test mocha --require babel-register -R spec ./tests/unit/*.js",
-    "test:specs": "NODE_ENV=test mocha --require babel-register -R spec ./tests/integration/*.js"
+    "test:unit": "NODE_ENV=test mocha --require babel-register -R spec ./test/unit/*.js",
+    "test:integration": "NODE_ENV=test mocha --require babel-register -R spec ./test/integration/*.js"
   },
   "dependencies": {
     "autoprefixer": "^7.1.6",
@@ -63,7 +71,7 @@
     "builder-support": "^0.5.0",
     "chalk": "^2.3.0",
     "css-loader": "^0.28.7",
-    "dotenv": "^4.0.0",
+    "dotenv-cli": "^1.4.0",
     "exit-hook": "^1.1.1",
     "glob": "^7.1.2",
     "happypack": "^4.0.0",
@@ -80,6 +88,9 @@
     "webpack-alternate-require-loader": "^0.0.3"
   },
   "devDependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "hull-repl": "^0.1.1",
+    "mocha": "^4.0.1",
     "npm-check": "^5.5.1",
     "rimraf": "^2.6.2"
   }
