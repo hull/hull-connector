@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Connector Archetype (Uses Builder)",
-  "version": "1.0.33",
+  "version": "1.0.36",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -19,11 +19,11 @@
     "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
   },
   "prettier": {
-    "parser": "flow",
-    "trailing-comma": "es5",
-    "single-quote": "false",
-    "arrow-parens": "avoid",
-    "parser": "flow"
+    "trailingComma": "es5",
+    "singleQuote": false,
+    "arrowParens": "avoid",
+    "semi": true,
+    "parser": "babylon"
   },
   "scripts": {
     "gen-dev": "./node_modules/.bin/builder-support gen-dev",
@@ -35,7 +35,7 @@
     "precommit": "lint-staged",
     "npm:postinstall": "builder --env='{\"NODE_ENV\":\"production\"}' run build",
     "prepare": "NODE_ENV=production babel lib --copy-files -d dist",
-    "prettier": "prettier --config ./my/.prettierrc \"src/**/*.js\" --write \"server/**/*.js\"",
+    "prettier": "prettier \"src/**/*.js\" --write \"server/**/*.js\"",
     "build": "builder run clean && builder run build:server && builder run build:client",
     "build:server": "NODE_ENV=production babel server --copy-files -d lib",
     "build:client": "NODE_ENV=production webpack --config ./node_modules/hull-connector/config/webpack.config.js",
@@ -45,8 +45,8 @@
     "test:modules": "npm outdated --depth=0",
     "test:coverage": "NODE_ENV=test jest --env=jsdom --config=jest.config.json --coverage",
     "test:client": "NODE_ENV=test jest --env=jsdom --config=jest.config.json",
-    "test:units": "NODE_ENV=test mocha ./tests/unit/*.js",
-    "test:specs": "NODE_ENV=test mocha ./tests/integration/*.js"
+    "test:units": "NODE_ENV=test mocha --opts ./tests/mocha.opts ./tests/unit/*.js",
+    "test:specs": "NODE_ENV=test mocha --opts ./tests/mocha.opts ./tests/integration/*.js"
   },
   "dependencies": {
     "autoprefixer": "^7.2.3",

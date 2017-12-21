@@ -1,8 +1,7 @@
- {
-   "parser": "flow",
-   "trailing-comma": "es5",
-   "single-quote": "false",
-   "arrow-parens": "avoid",
-   "semi": true,
-   "parser": "flow"
+{
+  "trailingComma": "none",
+  "singleQuote": false,
+  "arrowParens": "avoid",
+  "semi": true,
+  "parser": "babylon"
 }
