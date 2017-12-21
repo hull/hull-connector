@@ -12,7 +12,7 @@
     }
   },
   "extends": [
-    "prettier",
+    "plugin:prettier/recommended"
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:jest/recommended",
@@ -20,7 +20,6 @@
     "airbnb"
   ],
   "plugins": [
-    "prettier",
     "jest",
     "flowtype-errors",
     "flowtype",
@@ -37,7 +36,6 @@
     "es6": true
   },
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": false }],
     "flowtype-errors/show-errors": [2],
     "comma-dangle": ["error", "never"],
     "max-len": [0],

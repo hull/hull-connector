@@ -1,0 +1,7 @@
+ {
+   "parser": "flow",
+   "trailing-comma": "es5",
+   "single-quote": "false",
+   "arrow-parens": "avoid",
+   "parser": "flow"
+}
