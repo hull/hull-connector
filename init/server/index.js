@@ -9,7 +9,7 @@ const {
   NODE_ENV,
   OVERRIDE_FIREHOSE_URL,
   LOG_LEVEL,
-  PORT = 8082,
+  PORT = 8082
 } = process.env;
 
 const options = {
@@ -17,12 +17,12 @@ const options = {
   devMode: NODE_ENV === 'development',
   port: PORT,
   ngrok: {
-    subdomain: pkg.name,
+    subdomain: pkg.name
   },
   Hull,
   clientConfig: {
-    firehoseUrl: OVERRIDE_FIREHOSE_URL,
-  },
+    firehoseUrl: OVERRIDE_FIREHOSE_URL
+  }
 };
 
 if (LOG_LEVEL) {
@@ -32,5 +32,5 @@ if (LOG_LEVEL) {
 Hull.logger.transports.console.json = true;
 Hull.logger.debug(`${pkg.name}.boot`);
 
-const app = server(options);
+server(options);
 Hull.logger.debug(`${pkg.name}.started`, { port: PORT });

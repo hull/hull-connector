@@ -4,21 +4,29 @@
   "description": "<%= packageDescription %>",
   "main": "index.js",
   "license": "MIT",
-  "homepage": "https://github.com/<%= packageGitHubOrg %>",
+  "homepage": "https://github.com/<%= packageGitHubOrg %>/<%= packageName %>",
   "keywords": ["hull", "ship", "hull-ship"],
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",
-    "url": "https://github.com/<%= packageGitHubOrg %>"
+    "url": "https://github.com/<%= packageGitHubOrg %>/<%= packageName %>"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/<%= packageGitHubOrg %>/<%= packageName %>"
+  },
+  "bugs": {
+    "url": "https://github.com/<%= packageGitHubOrg %>/<%= packageName %>/issues"
   },
   "engines": {
     "node": "8.x",
     "npm": "3.x"
   },
   "lint-staged": {
-    "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
+    "*.{js,jsx,css,scss,json}": ["prettier --write", "git add"]
   },
   "scripts": {
+    "ngrok": "ngrok http 8082 --region eu --subdomain <%= packageName %>",
     "build": "builder run build",
     "build:client": "builder run build:client",
     "build:server": "builder run build:server",
@@ -41,14 +49,15 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
-    "builder": "^3.2.3",
-    "classnames": "^2.2.5",
-    "css": "^2.2.1",
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
-    "hull": "^0.13.0",
+    "classnames": "^2.2.5",
+    "builder": "^3.2.3",
+    "hull": "^0.13.9",
     "hull-connector": "<%= archetype.package.version ? '^' + archetype.package.version : '*' %>",
     "hull-connector-dev": "<%= archetype.devPackage.version ? '^' + archetype.devPackage.version : '*' %>",
     "lodash": "^4.17.4",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
@@ -59,6 +68,9 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
+    "updtr": "^2.0.0",
+    "ngrok": "^2.2.24",
     "react-hot-loader": "^3.1.1",
     "reactotron-react-js": "^1.12.2",
     "reactotron-redux": "^1.12.2"

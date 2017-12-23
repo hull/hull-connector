@@ -12,16 +12,22 @@
     }
   },
   "extends": [
-    "plugin:prettier/recommended",
+    "airbnb",
+    "plugin:react/recommended",
     "plugin:jest/recommended",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:prettier/recommended",
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react",
+    "prettier/standard"
   ],
   "plugins": [
-    "prettier",
     "jest",
     "flowtype-errors",
     "flowtype",
-    "react"
+    "react",
+    "prettier"
   ],
   "env": {
     "jest/globals": true,
