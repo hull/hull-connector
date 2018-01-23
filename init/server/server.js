@@ -9,7 +9,7 @@ export default function Server(options = {}) {
   const connector = new Hull.Connector(options);
 
   if (options.devMode) {
-    const { devMode } = require('hull-connector');
+    const { devMode } = require('hull-connector'); // eslint-disable-line global-require
     devMode(app, options);
   }
   connector.setupApp(app);

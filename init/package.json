@@ -5,7 +5,6 @@
   "main": "index.js",
   "license": "MIT",
   "homepage": "https://github.com/<%= packageGitHubOrg %>/<%= packageName %>",
-  "keywords": ["hull", "ship", "hull-ship"],
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",
@@ -25,6 +24,15 @@
   "lint-staged": {
     "*.{js,jsx,css,scss,json}": ["prettier --write", "git add"]
   },
+  "keywords": [
+    "hull",
+    "ship",
+    "hull-ship",
+    "integration",
+    "user",
+    "sync",
+    "<%= packageHumanName.toLowerCase().replace(/ /, '-') %>"
+  ],
   "scripts": {
     "ngrok": "ngrok http 8082 --region eu --subdomain <%= packageName %>",
     "build": "builder run build",
@@ -60,6 +68,7 @@
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "newrelic": "^2.4.2",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",

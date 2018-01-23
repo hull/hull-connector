@@ -14,11 +14,11 @@ const notify = smartNotifierHandler({
       smartNotifierResponse.setFlowControl({
         type: 'next',
         size: 100,
-        in: 100,
+        in: 100
       });
       return Promise.resolve();
-    },
-  },
+    }
+  }
 });
 
 export default notify;

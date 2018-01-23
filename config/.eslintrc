@@ -48,6 +48,7 @@
     "no-param-reassign": [0],
     "no-console": [1],
     "eqeqeq": [1],
+    "camelcase": [0],
     "flowtype-errors/show-errors": [2],
     "react/jsx-wrap-multilines": [0],
     "react/no-deprecated": [2],

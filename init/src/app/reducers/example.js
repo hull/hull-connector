@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 
 type State = {
-  open: Boolean,
+  open: Boolean
 };
 
 export function initState() {
@@ -14,8 +14,8 @@ const reducer = handleActions(
     EXAMPLE_CLOSE: (state: State, { payload }) => ({ ...state, open: false }),
     EXAMPLE_TOGGLE: (state: State, { payload }) => ({
       ...state,
-      open: !state.open,
-    }),
+      open: !state.open
+    })
   },
   initState()
 );
