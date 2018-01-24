@@ -54,6 +54,7 @@ hull-connector-1.0.1.tgz
 ```
 
 ## Usage
+
 ```
 ~/test ❯❯❯ cd hull-test
 ~/test ❯❯❯ nvm use 8
@@ -62,6 +63,92 @@ hull-connector-1.0.1.tgz
 ~/test ❯❯❯ yarn build //Build project
 ~/test ❯❯❯ yarn start //Start production server
 ```
+
+## Writing tests
+
+We use `mocha + chai + sinon + nock` for server tests.
+
+We offer an easy way to write integration tests by using the `hull-connector-dev/mockr` package. 
+
+It sets up some mocks and `minihull`, which is a stripped down version of hull
+that's able to send messages to connectors and offer expectations on what the connector should send to the Firehose.
+
+##### Here's how:
+
+```js
+import { expect } from "chai";
+import mockr from "hull-connector-dev/mockr";
+
+// Your server's entry point, with the same format as the one Builder bundles.
+// Options will be passed to it.
+import server from "../../server/server";
+
+describe("Test Group", () => {
+  // Start the mocks. they will run `beforeEach` and `afterEach` cleanups for you,
+  // Start a development server
+  const mocks = mockr({
+    server
+    beforeEach,
+    afterEach,
+    port: 8000,
+    segments: [{ id: "1", name: "A" }], // Segments that should exist on the server
+  });
+
+  it("should behave properly", done => {
+    const myNock = mocks
+      .nock("https://api.myremote.test.com")
+      .get("/test")
+      .query({ foo: "bar" })
+      .reply(200, [{ email: "foo@foo.bar", id: "foobar" }]);
+
+    // Optional, if you want to stub more things that your connector
+    // will access during it's flow.
+    mocks.minihull.stubApp("/api/v1/search/user_reports").respond({
+      pagination: { total: 0 },
+      aggregations: {
+        without_email: { doc_count: 0 },
+        by_source: { buckets: [] },
+      },
+    });
+
+    // Sennd a `user:update` call to the connector.
+    mocks.minihull.userUpdate(
+      {
+        // Connector Settings
+        connector: {
+          id: "123456789012345678901234",
+          private_settings: {
+            api_key: "123",
+            handle_accounts: true,
+            prospect_enabled: true,
+            prospect_segments: ["1"],
+            prospect_filter_titles: ["foo"],
+            prospect_limit_count: 2,
+          },
+        },
+        // Message payload
+        messages: [
+          {
+            user: { id: "abc", "traits/clearbit/source": "reveal" },
+            account: { id: "ACCOUNTID", domain: "domain.com" },
+            segments: [{ id: "1" }],
+          },
+        ],
+      },
+      // This is what the Firehose receives.
+      batch => {
+        const [first, second, third, fourth] = batch;
+        expect(batch.length).to.equal(4);
+        myNock.done();
+        done();
+      }
+    );
+  });
+});
+```
+
+If you use Atom, i strongly recommend you install [`mocha-test-runner`](https://atom.io/packages/mocha-test-runner)
+which will let you run test by hitting `ctrl-alt-m`
 
 ## Developing the Archetype
 
@@ -79,5 +166,5 @@ npm run publish:both
 
 ## Setup
 
-- Will monitor, bundle and build all `.js` files in the `src` folder for Client-side code
-- Will build the `server` folder as `lib` for Server-side code
+* Will monitor, bundle and build all `.js` files in the `src` folder for Client-side code
+* Will build the `server` folder as `lib` for Server-side code
