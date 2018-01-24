@@ -79,7 +79,7 @@ that's able to send messages to connectors and offer expectations on what the co
 import { expect } from "chai";
 import mockr from "hull-connector-dev/lib/mockr";
 
-// Your server's entry point, with the same format as the one Builder bundles.
+// Your server's entry point, with the same format as the one `hull-connector` bundles.
 // Options will be passed to it.
 import server from "../../server/server";
 
@@ -111,7 +111,7 @@ describe("Test Group", () => {
       },
     });
 
-    // Sennd a `user:update` call to the connector.
+    // Send a `user:update` call to the connector.
     mocks.minihull.userUpdate(
       {
         // Connector Settings
