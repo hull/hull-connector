@@ -77,7 +77,7 @@ that's able to send messages to connectors and offer expectations on what the co
 
 ```js
 import { expect } from "chai";
-import mockr from "hull-connector-dev/mockr";
+import mockr from "hull-connector-dev/lib/mockr";
 
 // Your server's entry point, with the same format as the one Builder bundles.
 // Options will be passed to it.
