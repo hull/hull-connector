@@ -77,7 +77,7 @@ that's able to send messages to connectors and offer expectations on what the co
 
 ```js
 import { expect } from "chai";
-import mockr from "hull-connector-dev/mockr";
+import mockr from "hull-connector-dev/lib/mockr";
 
 // Your server's entry point, with the same format as the one Builder bundles.
 // Options will be passed to it.
@@ -136,9 +136,10 @@ describe("Test Group", () => {
         ],
       },
       // This is what the Firehose receives.
-      batch => {
+      ({ batch, logs }) => {
         const [first, second, third, fourth] = batch;
         expect(batch.length).to.equal(4);
+        expect(logs[1].message).to.equal("outgoing.user.start");
         myNock.done();
         done();
       }

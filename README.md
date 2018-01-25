@@ -136,9 +136,10 @@ describe("Test Group", () => {
         ],
       },
       // This is what the Firehose receives.
-      batch => {
+      ({ batch, logs }) => {
         const [first, second, third, fourth] = batch;
         expect(batch.length).to.equal(4);
+        expect(logs[1].message).to.equal("outgoing.user.start");
         myNock.done();
         done();
       }

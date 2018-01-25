@@ -40,7 +40,6 @@
     "es6": true
   },
   "rules": {
-    "comma-dangle": ["error", "never"],
     "prefer-arrow-callback": [1],
     "new-cap": [0],
     "no-underscore-dangle": [0],
