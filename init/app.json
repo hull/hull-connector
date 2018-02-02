@@ -1,7 +1,7 @@
 {
   "name": "Hull <%= packageHumanName %> Sync",
   "description": "A Hull Integration for <%= packageHumanName %>.",
-  "repository": "https://github.com/hull-ships/hull-<%= packageName %>",
+  "repository": "https://github.com/hull-ships/<%= packageName %>",
   "website": "http://www.hull.io",
   "success_url": "/readme",
   "env": {

@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Connector Archetype (Uses Builder)",
-  "version": "1.0.40",
+  "version": "1.0.42",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -24,6 +24,9 @@
     "arrowParens": "avoid",
     "semi": true,
     "parser": "babylon"
+  },
+  "bin": {
+    "hull-repl": "lib/electrode/index.js"
   },
   "scripts": {
     "gen-dev": "./node_modules/.bin/builder-support gen-dev ; yarn run devconnector",
