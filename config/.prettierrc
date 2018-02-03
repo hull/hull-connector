@@ -1,6 +1,5 @@
 {
   "trailingComma": "none",
-  "singleQuote": false,
   "arrowParens": "avoid",
   "semi": true,
   "parser": "babylon"

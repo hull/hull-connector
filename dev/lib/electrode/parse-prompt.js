@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = parsePrompt;
 
-var _inquirer = require('inquirer');
+var _inquirer = require("inquirer");
 
 var _inquirer2 = _interopRequireDefault(_inquirer);
 
@@ -24,19 +24,19 @@ function parsePrompt() {
 
   return _inquirer2.default.prompt([
     {
-      type: 'input',
-      name: 'HULL_ID',
-      message: 'SHIP_ID'
+      type: "input",
+      name: "HULL_ID",
+      message: "SHIP_ID"
     },
     {
-      type: 'input',
-      name: 'HULL_SECRET',
-      message: 'SHIP_SECRET'
+      type: "input",
+      name: "HULL_SECRET",
+      message: "SHIP_SECRET"
     },
     {
-      type: 'input',
-      name: 'HULL_ORG',
-      message: 'SHIP_ORG'
+      type: "input",
+      name: "HULL_ORG",
+      message: "SHIP_ORG"
     }
   ]);
 }

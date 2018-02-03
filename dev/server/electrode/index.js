@@ -1,2 +1,3 @@
 require('babel-register')({ presets: ['env', 'stage-0'] });
-require('./electrode');
+const electrode = require('./electrode');
+module.exports = electrode;

@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = initializeContext;
 
-var _hull = require('hull');
+var _hull = require("hull");
 
 var _hull2 = _interopRequireDefault(_hull);
 
@@ -21,6 +21,6 @@ function initializeContext(context, hull, _ref) {
   context.hullClient = hull;
   context.connector = HULL_ID;
   context.organization = HULL_ORG;
-  context.moment = require('moment');
+  context.moment = require("moment");
   context.lo = _;
 }

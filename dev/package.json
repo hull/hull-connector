@@ -1,7 +1,7 @@
 {
   "name": "hull-connector-dev",
   "description": "Hull Connector Archetype (Uses Builder) (Development)",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -16,11 +16,10 @@
     "npm": "3.x"
   },
   "lint-staged": {
-    "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
+    "*.{js,jsx,css,less,scss,json}": ["prettier --write", "git add"]
   },
   "prettier": {
     "trailingComma": "es5",
-    "singleQuote": false,
     "arrowParens": "avoid",
     "semi": true,
     "parser": "babylon"

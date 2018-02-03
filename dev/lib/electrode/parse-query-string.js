@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = parseQueryString;
 
-var _minimist = require('minimist');
+var _minimist = require("minimist");
 
 var _minimist2 = _interopRequireDefault(_minimist);
 

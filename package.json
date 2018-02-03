@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Connector Archetype (Uses Builder)",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -16,11 +16,10 @@
     "npm": "3.x"
   },
   "lint-staged": {
-    "*.{js,jsx,css,scss,json}": ["prettier --write --single-quote", "git add"]
+    "*.{js,jsx,css,less,scss,json}": ["prettier --write", "git add"]
   },
   "prettier": {
     "trailingComma": "es5",
-    "singleQuote": false,
     "arrowParens": "avoid",
     "semi": true,
     "parser": "babylon"
@@ -45,12 +44,15 @@
     "build:client": "NODE_ENV=production webpack --config ./node_modules/hull-connector/config/webpack.config.js",
     "dev": "NODE_ENV=development babel-watch -w server server/index.js",
     "npm:test": "builder run test:lint && builder run test:units && builder run test:specs",
+    "test:electrode": "node ./tests/electrode",
     "test:lint": "eslint server",
     "test:modules": "npm outdated --depth=0",
     "test:coverage": "NODE_ENV=test jest --env=jsdom --config=jest.config.json --coverage",
     "test:client": "NODE_ENV=test jest --env=jsdom --config=jest.config.json",
     "test:units": "NODE_ENV=test mocha --opts ./tests/mocha.opts ./tests/unit/*.js",
-    "test:specs": "NODE_ENV=test mocha --opts ./tests/mocha.opts ./tests/integration/*.js"
+    "test:units:watch": "NODE_ENV=test mocha --watch --opts ./tests/mocha.opts ./tests/unit/*.js",
+    "test:specs": "NODE_ENV=test mocha --opts ./tests/mocha.opts ./tests/integration/*.js",
+    "test:specs:watch": "NODE_ENV=test mocha --watch --opts ./tests/mocha.opts ./tests/integration/*.js"
   },
   "dependencies": {
     "autoprefixer": "^7.2.3",

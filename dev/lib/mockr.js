@@ -1,26 +1,26 @@
-'use strict';
+"use strict";
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _extends2 = require("babel-runtime/helpers/extends");
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+var _toConsumableArray2 = require("babel-runtime/helpers/toConsumableArray");
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _minihull = require('minihull');
+var _minihull = require("minihull");
 
 var _minihull2 = _interopRequireDefault(_minihull);
 
-var _hull = require('hull');
+var _hull = require("hull");
 
 var _hull2 = _interopRequireDefault(_hull);
 
-var _nock = require('nock');
+var _nock = require("nock");
 
 var _nock2 = _interopRequireDefault(_nock);
 
-var _jwtSimple = require('jwt-simple');
+var _jwtSimple = require("jwt-simple");
 
 var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
 
@@ -44,7 +44,7 @@ module.exports = function bootstrap(_ref) {
   var logger = function logger(level, message, data) {
     response.logs.push({ level: level, message: message, data: data });
   };
-  _hull2.default.logger.on('logged', logger);
+  _hull2.default.logger.on("logged", logger);
 
   beforeEach(function(done) {
     response.logs = [];
@@ -70,7 +70,7 @@ module.exports = function bootstrap(_ref) {
         callback(res);
       };
 
-      mocks.minihull.on('incoming.request@/api/v1/firehose', function(req) {
+      mocks.minihull.on("incoming.request@/api/v1/firehose", function(req) {
         var _response$batch;
 
         (_response$batch = response.batch).push.apply(
@@ -79,8 +79,8 @@ module.exports = function bootstrap(_ref) {
             req.body.batch.map(function(r) {
               return (0, _extends3.default)({}, r, {
                 claims: _jwtSimple2.default.decode(
-                  r.headers['Hull-Access-Token'],
-                  '',
+                  r.headers["Hull-Access-Token"],
+                  "",
                   true
                 )
               });
@@ -91,8 +91,8 @@ module.exports = function bootstrap(_ref) {
       minihull
         .smartNotifyConnector(
           connector,
-          'http://localhost:' + port + '/smart-notifier',
-          'user:update',
+          "http://localhost:" + port + "/smart-notifier",
+          "user:update",
           messages
         )
         .then(function() {
@@ -102,14 +102,14 @@ module.exports = function bootstrap(_ref) {
     };
     mocks.minihull = minihull;
     mocks.server = server({
-      hostSecret: '1234',
+      hostSecret: "1234",
       skipSignatureValidation: true,
       Hull: _hull2.default,
       port: port,
       clientConfig: {
         flushAt: 1,
-        protocol: 'http',
-        firehoseUrl: 'http://localhost:8001/api/v1/firehose'
+        protocol: "http",
+        firehoseUrl: "http://localhost:8001/api/v1/firehose"
       }
     });
   });

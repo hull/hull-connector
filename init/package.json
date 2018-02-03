@@ -22,7 +22,7 @@
     "npm": "3.x"
   },
   "lint-staged": {
-    "*.{js,jsx,css,scss,json}": ["prettier --write", "git add"]
+    "*.{js,jsx,css,less,scss,json}": ["prettier --write", "git add"]
   },
   "keywords": [
     "hull",
@@ -50,7 +50,9 @@
     "test:lint": "builder run test:lint",
     "test:modules": "builder run test:modules",
     "test:specs": "builder run test:specs",
+    "test:specs:watch": "builder run test:specs:watch",
     "test:units": "builder run test:units",
+    "test:units:wtch": "builder run test:units:watch",
     "start": "NODE_ENV=production node -r newrelic lib",
     "dev": "builder run dev",
     "test": "builder run npm:test"
