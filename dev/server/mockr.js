@@ -1,7 +1,7 @@
-import Minihull from 'minihull';
-import Hull from 'hull';
-import nock from 'nock';
-import jwt from 'jwt-simple';
+import Minihull from "minihull";
+import Hull from "hull";
+import nock from "nock";
+import jwt from "jwt-simple";
 
 const noop = () => {};
 
@@ -19,14 +19,15 @@ module.exports = function bootstrap({
   const logger = (level, message, data) => {
     response.logs.push({ level, message, data });
   };
-  Hull.logger.on('logged', logger);
+  Hull.logger.on("logged", logger);
 
   beforeEach(done => {
     response.logs = [];
     response.batch = [];
 
     const minihull = new Minihull();
-    minihull.listen(8001).then(done);
+    mocks.minihull = minihull;
+    minihull.listen(8001);
     minihull.stubSegments(segments);
     minihull.userUpdate = ({ connector, messages }, callback = noop) => {
       const t = setTimeout(() => {
@@ -38,11 +39,11 @@ module.exports = function bootstrap({
         callback(res);
       };
 
-      mocks.minihull.on('incoming.request@/api/v1/firehose', req => {
+      mocks.minihull.on("incoming.request@/api/v1/firehose", req => {
         response.batch.push(
           ...req.body.batch.map(r => ({
             ...r,
-            claims: jwt.decode(r.headers['Hull-Access-Token'], '', true)
+            claims: jwt.decode(r.headers["Hull-Access-Token"], "", true)
           }))
         );
       });
@@ -50,7 +51,7 @@ module.exports = function bootstrap({
         .smartNotifyConnector(
           connector,
           `http://localhost:${port}/smart-notifier`,
-          'user:update',
+          "user:update",
           messages
         )
         .then(() => {
@@ -58,18 +59,20 @@ module.exports = function bootstrap({
           // console.log('response came', res)
         });
     };
-    mocks.minihull = minihull;
-    mocks.server = server({
-      hostSecret: '1234',
-      skipSignatureValidation: true,
-      Hull,
-      port,
-      clientConfig: {
-        flushAt: 1,
-        protocol: 'http',
-        firehoseUrl: 'http://localhost:8001/api/v1/firehose'
-      }
-    });
+    mocks.server = server(
+      {
+        hostSecret: "1234",
+        skipSignatureValidation: true,
+        Hull,
+        port,
+        clientConfig: {
+          flushAt: 1,
+          protocol: "http",
+          firehoseUrl: "http://localhost:8001/api/v1/firehose"
+        }
+      },
+      done
+    );
   });
 
   afterEach(() => {

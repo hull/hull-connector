@@ -51,7 +51,8 @@ module.exports = function bootstrap(_ref) {
     response.batch = [];
 
     var minihull = new _minihull2.default();
-    minihull.listen(8001).then(done);
+    mocks.minihull = minihull;
+    minihull.listen(8001);
     minihull.stubSegments(segments);
     minihull.userUpdate = function(_ref2) {
       var connector = _ref2.connector,
@@ -100,18 +101,20 @@ module.exports = function bootstrap(_ref) {
           // console.log('response came', res)
         });
     };
-    mocks.minihull = minihull;
-    mocks.server = server({
-      hostSecret: "1234",
-      skipSignatureValidation: true,
-      Hull: _hull2.default,
-      port: port,
-      clientConfig: {
-        flushAt: 1,
-        protocol: "http",
-        firehoseUrl: "http://localhost:8001/api/v1/firehose"
-      }
-    });
+    mocks.server = server(
+      {
+        hostSecret: "1234",
+        skipSignatureValidation: true,
+        Hull: _hull2.default,
+        port: port,
+        clientConfig: {
+          flushAt: 1,
+          protocol: "http",
+          firehoseUrl: "http://localhost:8001/api/v1/firehose"
+        }
+      },
+      done
+    );
   });
 
   afterEach(function() {

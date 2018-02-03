@@ -1,4 +1,4 @@
-const electrode = require('hull-connector-dev/lib/electrode');
-const server = require('../server/server');
+const electrode = require("hull-connector-dev/lib/electrode").default;
+const server = require("../server/server").default;
 
 electrode(server);

@@ -1,7 +1,7 @@
 {
   "name": "hull-connector-dev",
   "description": "Hull Connector Archetype (Uses Builder) (Development)",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -66,6 +66,7 @@
     "minimist": "^1.2.0",
     "mocha": "^4.0.1",
     "mocha-sinon": "^2.0.0",
+    "moment": "^2.20.1",
     "ngrok": "^2.2.24",
     "nock": "^9.1.6",
     "npm-check": "^5.5.2",
@@ -80,6 +81,7 @@
     "rimraf": "^2.6.2",
     "shelljs": "^0.8.1",
     "sinon": "^4.1.3",
+    "urijs": "^1.19.0",
     "webpack-dev-middleware": "^2.0.2",
     "webpack-hot-middleware": "^2.21.0"
   },

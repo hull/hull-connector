@@ -1,8 +1,26 @@
 # Hull Connector Generator
 
-We use [Builder](http://formidable.com/open-source/builder/)
+Think of this connector generator is a kind of [create-react-app](https://github.com/facebook/create-react-app) for Hull connectors. It helps you go from 0 to fully setup environment in about 30 seconds.
+
+It generates a fully working connector setup that you can immediately boot and use to receive Hull data streams and process them. It has sane defaults, with 
+
+- prettier
+- eslint
+- babel
+- webpack
+- flow
+- mocha / sinon / chai / nock (for server testing)
+- jest (for client testing)
+
+Plus a bunch of hull-specific tooling to make it easy to simulate traffic: 
+
+At the same time, it doesn't force you into any specific setup. It's _just an `express` app_ at the core.
+
+If you need to build a Dashboard UI, React hot-reload and Webpack are pre-configured, you just have to start writing your code.
 
 ## Installing
+
+We use [builder-Init](https://github.com/FormidableLabs/builder-init) to generate the boilerplate app. Installing and generating a connector takes 2 lines:
 
 ```
 ~/test ❯❯❯ yarn global add builder builder-init
@@ -12,7 +30,8 @@ We use [Builder](http://formidable.com/open-source/builder/)
 ![preview](README.png)
 
 ```
-hull-connector-1.0.1.tgz
+
+hull-connector-1.0.44.tgz
 [builder-init] Preparing templates for: hull-connector
 ? Human-readable Name (e.g., 'Intercom') Test
 ? Package / GitHub project name hull-test
@@ -30,25 +49,7 @@ hull-connector-1.0.1.tgz
  - hull-test/jest.config.json
  - hull-test/manifest.json
  - hull-test/newrelic.js
- - hull-test/package.json
- - hull-test/.gitignore
- - hull-test/.npmignore
- - hull-test/assets/README.md
- - hull-test/assets/admin.html
- - hull-test/server/index.js
- - hull-test/server/server.js
- - hull-test/src/index.js
- - hull-test/src/ship.js
- - hull-test/server/handlers/index.js
- - hull-test/server/handlers/notify.js
- - hull-test/server/handlers/status.js
- - hull-test/src/app/App.jsx
- - hull-test/src/app/index.jsx
- - hull-test/src/app/middleware.js
- - hull-test/src/app/store.js
- - hull-test/src/css/index.scss
- - hull-test/src/app/reducers/example.js
- - hull-test/src/app/reducers/index.js
+ - [....]
 
 [builder-init] New hull-connector project is ready at: hull-test
 ```
@@ -57,21 +58,116 @@ hull-connector-1.0.1.tgz
 
 ```
 ~/test ❯❯❯ cd hull-test
-~/test ❯❯❯ nvm use 8
 ~/test ❯❯❯ yarn
 ~/test ❯❯❯ yarn dev   //Start development server
 ~/test ❯❯❯ yarn build //Build project
 ~/test ❯❯❯ yarn start //Start production server
 ```
 
-## Writing tests
+When your connector is ready (as soon as you have ran `yarn` in it's folder), you can start using it as follows:
 
-We use `mocha + chai + sinon + nock` for server tests.
+command | description | Notes |
+--|---|--|--
+yarn dev  | Start in development mode  |  
+yarn ngrok  | Start a [ngrok](http://ngrok.com/) server | be sure to have your account setup to choose the subdomain  
+yarn build  | Build client and server assets  |  
+yarn start  | Start in production mode  |  
+yarn build:client  | Build Client-files from `src` to `dist` |  Uses Webpack & Babel 
+yarn build:server  | Build Server assets from `server` to  `lib` | Uses Babel
+yarn clean  | Remove build files |  
+yarn prettier  | Prettifies source files |  
+yarn flow  | Checks `Flow` annotations  |  
+yarn lint  | Lint and surface errors  |  
+yarn test:electrode  | Starts Hull's Repl, [**Electrode**](#electrode)  |  
+yarn test  |  Run Server & Client tests |  
+yarn test:client  | Jest client tests  |  
+yarn test:units  |  Unit Tests |  
+yarn test:units:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
+yarn test:specs  |  Runs integration tests | Use [`minihull`](#minihull) | 
+yarn test:specs:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
 
-We offer an easy way to write integration tests by using the `hull-connector-dev/mockr` package. 
 
-It sets up some mocks and `minihull`, which is a stripped down version of hull
-that's able to send messages to connectors and offer expectations on what the connector should send to the Firehose.
+
+---
+
+## Electrode
+### Simulating real traffic on connectors.
+Electrode is an easy-to-use REPL you can use to send any kind of traffic to connectors, while being in a `real` hull environment, and see what the connector sends to Hull in response.
+
+- It takes a real connector ID & Secret to boot
+- It fetches the actual settings for this ID & Secret and uses them on the connector.
+- It accepts User or Account notification payloads,
+- It displays what the connetor sends back to Hull
+
+Getting an example payload is very easy: just install a Processor connector, search for the User you want and copy the payload on the left column.
+
+```sh
+~/hull-test ❯❯❯ yarn test:electrode --port 8083
+# yarn run v1.3.2
+# $ node ./tests/electrode
+? SHIP_ID my-ship-id
+? SHIP_SECRET my-ship-secret
+? SHIP_ORG my-org.hullapp.io
+
+  [...]
+  "schedules": [
+    {
+      "url": "/status",
+      "type": "interval",
+      "value": "5",
+      "next_run_time": 1517693700,
+      "last_run_time": null
+    }
+  ]
+  },
+  "resources": {}
+}
+
+╔═════════════════════════════════════════════════════════════╗
+║                                                             ║
+║                                                             ║
+║   Connector Started on port 8083 with instance my-ship-id   ║
+║   Organization: my-org.hullapp.io                           ║
+║                                                             ║
+║                                                             ║
+╚═════════════════════════════════════════════════════════════╝
+
+{"port":8083,"level":"info","message":"connector.server.listen"}
+
+hull ❯ _
+hull ❯ .load file.json user # loads `file.json` as `user`
+hull ❯ send(user) # sends user as a User Notification
+
+# What's available out of the box : 
+# colorize -> colorize console dumps with console.log(colorize(object));
+# segments -> segments on currently booted Hull organization
+# minihull -> hull server
+# hull -> hull client
+# connector -> connector object
+# organization -> org name
+# moment -> moment.js
+# lo -> lodash (renamed to avoid conflicts)
+# urijs
+# 
+# Of course you can require your own modules:
+hull ❯ const boxen = require('boxen');
+```
+
+---
+
+# Writing tests
+
+## mockr
+### Integration-testing for logs and connector responses 
+Mockr is a testing addition to make it easy to simulate calls and settings and write assertions on the connector's responses to Hull
+
+### Testing environment
+
+Boilerplate comes with `mocha/chai/sinon/nock` already setup for server tests.
+
+You can then simply require `hull-connector-dev/lib/mockr` package and start writing assertions.
+
+It sets up some mocks and `minihull`, which is a stripped down version of hull that's able to send messages to connectors and offer expectations on what the connector should send to the Firehose.
 
 ##### Here's how:
 
@@ -150,6 +246,8 @@ describe("Test Group", () => {
 
 If you use Atom, i strongly recommend you install [`mocha-test-runner`](https://atom.io/packages/mocha-test-runner)
 which will let you run test by hitting `ctrl-alt-m`
+
+---
 
 ## Developing the Archetype
 
