@@ -66,27 +66,25 @@ hull-connector-1.0.44.tgz
 
 When your connector is ready (as soon as you have ran `yarn` in it's folder), you can start using it as follows:
 
-command | description | Notes |
---|---|--|--
-yarn dev  | Start in development mode  |  
-yarn ngrok  | Start a [ngrok](http://ngrok.com/) server | be sure to have your account setup to choose the subdomain  
-yarn build  | Build client and server assets  |  
-yarn start  | Start in production mode  |  
-yarn build:client  | Build Client-files from `src` to `dist` |  Uses Webpack & Babel 
-yarn build:server  | Build Server assets from `server` to  `lib` | Uses Babel
-yarn clean  | Remove build files |  
-yarn prettier  | Prettifies source files |  
-yarn flow  | Checks `Flow` annotations  |  
-yarn lint  | Lint and surface errors  |  
-yarn test:electrode  | Starts Hull's Repl, [**Electrode**](#electrode)  |  
-yarn test  |  Run Server & Client tests |  
-yarn test:client  | Jest client tests  |  
-yarn test:units  |  Unit Tests |  
-yarn test:units:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
-yarn test:specs  |  Runs integration tests | Use [`minihull`](#minihull) | 
-yarn test:specs:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
-
-
+| command | description | Notes |
+| -- |--- |-- |-- |
+| yarn dev  | Start in development mode  |  
+| yarn ngrok  | Start a [ngrok](http://ngrok.com/) server | be sure to have your account setup to choose the subdomain  
+| yarn build  | Build client and server assets  |  
+| yarn start  | Start in production mode  |  
+| yarn build:client  | Build Client-files from `src` to `dist` |  Uses Webpack & Babel 
+| yarn build:server  | Build Server assets from `server` to  `lib` | Uses Babel
+| yarn clean  | Remove build files |  
+| yarn prettier  | Prettifies source files |  
+| yarn flow  | Checks `Flow` annotations  |  
+| yarn lint  | Lint and surface errors  |  
+| yarn test:electrode  | Starts Hull's Repl, [**Electrode**](#electrode)  |  
+| yarn test  |  Run Server & Client tests |  
+| yarn test:client  | Jest client tests  |  
+| yarn test:units  |  Unit Tests |  
+| yarn test:units:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
+| yarn test:specs  |  Runs integration tests | Use [`minihull`](#minihull) | 
+| yarn test:specs:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
 
 ---
 
