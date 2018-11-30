@@ -66,27 +66,25 @@ hull-connector-1.0.44.tgz
 
 When your connector is ready (as soon as you have ran `yarn` in it's folder), you can start using it as follows:
 
-command | description | Notes |
---|---|--|--
-yarn dev  | Start in development mode  |  
-yarn ngrok  | Start a [ngrok](http://ngrok.com/) server | be sure to have your account setup to choose the subdomain  
-yarn build  | Build client and server assets  |  
-yarn start  | Start in production mode  |  
-yarn build:client  | Build Client-files from `src` to `dist` |  Uses Webpack & Babel 
-yarn build:server  | Build Server assets from `server` to  `lib` | Uses Babel
-yarn clean  | Remove build files |  
-yarn prettier  | Prettifies source files |  
-yarn flow  | Checks `Flow` annotations  |  
-yarn lint  | Lint and surface errors  |  
-yarn test:electrode  | Starts Hull's Repl, [**Electrode**](#electrode)  |  
-yarn test  |  Run Server & Client tests |  
-yarn test:client  | Jest client tests  |  
-yarn test:units  |  Unit Tests |  
-yarn test:units:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
-yarn test:specs  |  Runs integration tests | Use [`minihull`](#minihull) | 
-yarn test:specs:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
-
-
+| command | description | Notes |
+| -- |--- |-- |-- |
+| yarn dev  | Start in development mode  |  
+| yarn ngrok  | Start a [ngrok](http://ngrok.com/) server | be sure to have your account setup to choose the subdomain  
+| yarn build  | Build client and server assets  |  
+| yarn start  | Start in production mode  |  
+| yarn build:client  | Build Client-files from `src` to `dist` |  Uses Webpack & Babel 
+| yarn build:server  | Build Server assets from `server` to  `lib` | Uses Babel
+| yarn clean  | Remove build files |  
+| yarn prettier  | Prettifies source files |  
+| yarn flow  | Checks `Flow` annotations  |  
+| yarn lint  | Lint and surface errors  |  
+| yarn test:electrode  | Starts Hull's Repl, [**Electrode**](#electrode)  |  
+| yarn test  |  Run Server & Client tests |  
+| yarn test:client  | Jest client tests  |  
+| yarn test:units  |  Unit Tests |  
+| yarn test:units:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
+| yarn test:specs  |  Runs integration tests | Use [`minihull`](#minihull) | 
+| yarn test:specs:watch  |  Starts a `mocha --watch` server | so you can quickly work on unit tests |  
 
 ---
 
@@ -190,7 +188,7 @@ describe("Test Group", () => {
     segments: [{ id: "1", name: "A" }], // Segments that should exist on the server
   });
 
-  it("should behave properly", done => {
+  it("should behave properly", async () => {
     const myNock = mocks
       .nock("https://api.myremote.test.com")
       .get("/test")
@@ -208,7 +206,7 @@ describe("Test Group", () => {
     });
 
     // Send a `user:update` call to the connector.
-    mocks.minihull.userUpdate(
+    const { batch, logs } = await mocks.minihull.userUpdate(
       {
         // Connector Settings
         connector: {
@@ -230,16 +228,14 @@ describe("Test Group", () => {
             segments: [{ id: "1" }],
           },
         ],
-      },
-      // This is what the Firehose receives.
-      ({ batch, logs }) => {
-        const [first, second, third, fourth] = batch;
-        expect(batch.length).to.equal(4);
-        expect(logs[1].message).to.equal("outgoing.user.start");
-        myNock.done();
-        done();
       }
     );
+    // const { batch, logs } = await mocks.minihull.accountUpdate is supported too
+    // This is what the Firehose receives.
+    const [first, second, third, fourth] = batch;
+    expect(batch.length).to.equal(4);
+    expect(logs[1].message).to.equal("outgoing.user.start");
+    myNock.done();
   });
 });
 ```

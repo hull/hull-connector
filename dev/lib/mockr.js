@@ -1,5 +1,9 @@
 "use strict";
 
+var _regenerator = require("babel-runtime/regenerator");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
 var _extends2 = require("babel-runtime/helpers/extends");
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -7,6 +11,10 @@ var _extends3 = _interopRequireDefault(_extends2);
 var _toConsumableArray2 = require("babel-runtime/helpers/toConsumableArray");
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _minihull = require("minihull");
 
@@ -31,6 +39,8 @@ function _interopRequireDefault(obj) {
 var noop = function noop() {};
 
 module.exports = function bootstrap(_ref) {
+  var _this = this;
+
   var server = _ref.server,
     beforeEach = _ref.beforeEach,
     afterEach = _ref.afterEach,
@@ -44,6 +54,7 @@ module.exports = function bootstrap(_ref) {
   var logger = function logger(level, message, data) {
     response.logs.push({ level: level, message: message, data: data });
   };
+
   _hull2.default.logger.on("logged", logger);
 
   beforeEach(function(done) {
@@ -54,53 +65,144 @@ module.exports = function bootstrap(_ref) {
     mocks.minihull = minihull;
     minihull.listen(8001);
     minihull.stubSegments(segments);
-    minihull.userUpdate = function(_ref2) {
-      var connector = _ref2.connector,
-        messages = _ref2.messages;
-      var callback =
-        arguments.length > 1 && arguments[1] !== undefined
-          ? arguments[1]
-          : noop;
+    var perform = (function() {
+      var _ref2 = (0, _asyncToGenerator3.default)(
+        /*#__PURE__*/ _regenerator2.default.mark(function _callee(_ref3) {
+          var connector = _ref3.connector,
+            messages = _ref3.messages,
+            channel = _ref3.channel;
+          var res;
+          return _regenerator2.default.wrap(
+            function _callee$(_context) {
+              while (1) {
+                switch ((_context.prev = _context.next)) {
+                  case 0:
+                    mocks.minihull.on(
+                      "incoming.request@/api/v1/firehose",
+                      function(req) {
+                        var _response$batch;
 
-      var t = setTimeout(function() {
-        callback(response);
-      }, 1800);
+                        (_response$batch = response.batch).push.apply(
+                          _response$batch,
+                          (0, _toConsumableArray3.default)(
+                            req.body.batch.map(function(r) {
+                              return (0, _extends3.default)({}, r, {
+                                claims: _jwtSimple2.default.decode(
+                                  r.headers["Hull-Access-Token"],
+                                  "",
+                                  true
+                                )
+                              });
+                            })
+                          )
+                        );
+                      }
+                    );
+                    _context.next = 3;
+                    return minihull.smartNotifyConnector(
+                      connector,
+                      "http://localhost:" +
+                        port +
+                        manifest.subscriptions[0].url,
+                      channel,
+                      messages
+                    );
 
-      var send = function send(res) {
-        clearTimeout(t);
-        callback(res);
+                  case 3:
+                    res = _context.sent;
+                    return _context.abrupt(
+                      "return",
+                      new Promise(function(resolve) {
+                        setTimeout(function() {
+                          resolve(res);
+                        }, 500);
+                      })
+                    );
+
+                  case 5:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            },
+            _callee,
+            _this
+          );
+        })
+      );
+
+      return function perform(_x) {
+        return _ref2.apply(this, arguments);
       };
+    })();
 
-      mocks.minihull.on("incoming.request@/api/v1/firehose", function(req) {
-        var _response$batch;
+    minihull.accountUpdate = (function() {
+      var _ref4 = (0, _asyncToGenerator3.default)(
+        /*#__PURE__*/ _regenerator2.default.mark(function _callee2(payload) {
+          return _regenerator2.default.wrap(
+            function _callee2$(_context2) {
+              while (1) {
+                switch ((_context2.prev = _context2.next)) {
+                  case 0:
+                    return _context2.abrupt(
+                      "return",
+                      perform(
+                        (0, _extends3.default)({}, payload, {
+                          channel: "account:update"
+                        })
+                      )
+                    );
 
-        (_response$batch = response.batch).push.apply(
-          _response$batch,
-          (0, _toConsumableArray3.default)(
-            req.body.batch.map(function(r) {
-              return (0, _extends3.default)({}, r, {
-                claims: _jwtSimple2.default.decode(
-                  r.headers["Hull-Access-Token"],
-                  "",
-                  true
-                )
-              });
-            })
-          )
-        );
-      });
-      minihull
-        .smartNotifyConnector(
-          connector,
-          "http://localhost:" + port + "/smart-notifier",
-          "user:update",
-          messages
-        )
-        .then(function() {
-          send(response);
-          // console.log('response came', res)
-        });
-    };
+                  case 1:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            },
+            _callee2,
+            _this
+          );
+        })
+      );
+
+      return function(_x2) {
+        return _ref4.apply(this, arguments);
+      };
+    })();
+    minihull.userUpdate = (function() {
+      var _ref5 = (0, _asyncToGenerator3.default)(
+        /*#__PURE__*/ _regenerator2.default.mark(function _callee3(payload) {
+          return _regenerator2.default.wrap(
+            function _callee3$(_context3) {
+              while (1) {
+                switch ((_context3.prev = _context3.next)) {
+                  case 0:
+                    return _context3.abrupt(
+                      "return",
+                      perform(
+                        (0, _extends3.default)({}, payload, {
+                          channel: "user:update"
+                        })
+                      )
+                    );
+
+                  case 1:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            },
+            _callee3,
+            _this
+          );
+        })
+      );
+
+      return function(_x3) {
+        return _ref5.apply(this, arguments);
+      };
+    })();
+
     mocks.server = server(
       {
         hostSecret: "1234",

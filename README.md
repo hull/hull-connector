@@ -188,7 +188,7 @@ describe("Test Group", () => {
     segments: [{ id: "1", name: "A" }], // Segments that should exist on the server
   });
 
-  it("should behave properly", done => {
+  it("should behave properly", async () => {
     const myNock = mocks
       .nock("https://api.myremote.test.com")
       .get("/test")
@@ -206,7 +206,7 @@ describe("Test Group", () => {
     });
 
     // Send a `user:update` call to the connector.
-    mocks.minihull.userUpdate(
+    const { batch, logs } = await mocks.minihull.userUpdate(
       {
         // Connector Settings
         connector: {
@@ -228,16 +228,14 @@ describe("Test Group", () => {
             segments: [{ id: "1" }],
           },
         ],
-      },
-      // This is what the Firehose receives.
-      ({ batch, logs }) => {
-        const [first, second, third, fourth] = batch;
-        expect(batch.length).to.equal(4);
-        expect(logs[1].message).to.equal("outgoing.user.start");
-        myNock.done();
-        done();
       }
     );
+    // const { batch, logs } = await mocks.minihull.accountUpdate is supported too
+    // This is what the Firehose receives.
+    const [first, second, third, fourth] = batch;
+    expect(batch.length).to.equal(4);
+    expect(logs[1].message).to.equal("outgoing.user.start");
+    myNock.done();
   });
 });
 ```
