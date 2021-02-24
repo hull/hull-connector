@@ -1,22 +1,29 @@
 {
   "name": "hull-connector-dev",
   "description": "Hull Connector Archetype (Uses Builder) (Development)",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
-  "keywords": ["hull", "ship", "hull-ship"],
+  "keywords": [
+    "hull",
+    "ship",
+    "hull-ship"
+  ],
   "author": {
     "name": "Hull",
     "email": "contact@hull.io",
     "url": "https://github.com/hull"
   },
   "engines": {
-    "node": "8.x",
-    "npm": "3.x"
+    "node": ">=10.x",
+    "npm": ">=3.x"
   },
   "lint-staged": {
-    "*.{js,jsx,css,less,scss,json}": ["prettier --write", "git add"]
+    "*.{js,jsx,css,less,scss,json}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "prettier": {
     "trailingComma": "es5",
@@ -25,7 +32,7 @@
     "parser": "babylon"
   },
   "bin": {
-    "hull-repl": "lib/electrode/index.js"
+    "hull-repl": "dev/lib/electrode/index.js"
   },
   "scripts": {},
   "dependencies": {
@@ -53,7 +60,7 @@
     "exit-hook": "^1.1.1",
     "faker": "^4.1.0",
     "flow-bin": "^0.61.0",
-    "hull": "^0.13.10",
+    "hull": "^0.13.23",
     "inquirer": "^5.0.1",
     "jest": "^22.0.3",
     "json-colorizer": "^1.1.0",

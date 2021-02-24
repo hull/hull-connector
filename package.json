@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Connector Archetype (Uses Builder)",
-  "version": "1.0.46",
+  "version": "1.0.47",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -16,8 +16,8 @@
     "url": "https://github.com/hull"
   },
   "engines": {
-    "node": "^10.x",
-    "npm": "3.x"
+    "node": ">=10.x",
+    "npm": ">=3.x"
   },
   "lint-staged": {
     "*.{js,jsx,css,less,scss,json}": [
@@ -32,7 +32,7 @@
     "parser": "babylon"
   },
   "bin": {
-    "hull-repl": "lib/electrode/index.js"
+    "hull-repl": "dev/lib/electrode/index.js"
   },
   "scripts": {
     "gen-dev": "./node_modules/.bin/builder-support gen-dev ; yarn run devconnector",
@@ -98,7 +98,7 @@
     "request": "^2.88.2",
     "sass-loader": "^6.0.7",
     "shelljs": "^0.8.4",
-    "style-loader": "^0.19.1",
+    "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.2",
     "webpack": "^3.12",
     "webpack-alternate-require-loader": "^0.0.3"

@@ -19,7 +19,6 @@ module.exports = function bootstrap({
   const logger = (level, message, data) => {
     response.logs.push({ level, message, data });
   };
-
   Hull.logger.on("logged", logger);
 
   beforeEach(done => {
@@ -28,9 +27,18 @@ module.exports = function bootstrap({
 
     const minihull = new Minihull();
     mocks.minihull = minihull;
-    minihull.listen(8001);
+    minihull.listen(8001).then(done);
     minihull.stubSegments(segments);
-    const perform = async ({ connector, messages, channel }) => {
+    minihull.userUpdate = ({ connector, messages }, callback = noop) => {
+      const t = setTimeout(() => {
+        callback(response);
+      }, 1800);
+
+      const send = res => {
+        clearTimeout(t);
+        callback(res);
+      };
+
       mocks.minihull.on("incoming.request@/api/v1/firehose", req => {
         response.batch.push(
           ...req.body.batch.map(r => ({
@@ -39,24 +47,18 @@ module.exports = function bootstrap({
           }))
         );
       });
-      const res = await minihull.smartNotifyConnector(
-        connector,
-        `http://localhost:${port}${manifest.subscriptions[0].url}`,
-        channel,
-        messages
-      );
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve(res);
-        }, 500);
-      });
+      minihull
+        .smartNotifyConnector(
+          connector,
+          `http://localhost:${port}/smart-notifier`,
+          "user:update",
+          messages
+        )
+        .then(() => {
+          send(response);
+          // console.log('response came', res)
+        });
     };
-
-    minihull.accountUpdate = async payload =>
-      perform({ ...payload, channel: "account:update" });
-    minihull.userUpdate = async payload =>
-      perform({ ...payload, channel: "user:update" });
-
     mocks.server = server(
       {
         hostSecret: "1234",
@@ -68,8 +70,7 @@ module.exports = function bootstrap({
           protocol: "http",
           firehoseUrl: "http://localhost:8001/api/v1/firehose"
         }
-      },
-      done
+      }
     );
   });
 

@@ -1,5 +1,5 @@
-"use strict";
+'use strict';
 
-require("babel-register")({ presets: ["env", "stage-0"] });
-var electrode = require("./electrode");
+require('babel-register')({ presets: ['env', 'stage-0'] });
+const electrode = require('./electrode');
 module.exports = electrode;

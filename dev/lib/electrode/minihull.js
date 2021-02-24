@@ -30,63 +30,31 @@ var _jwtSimple = require("jwt-simple");
 
 var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
 
-function _interopRequireDefault(obj) {
-  return obj && obj.__esModule ? obj : { default: obj };
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Mini(_ref) {
-  var segments = _ref.segments,
-    connector = _ref.connector,
-    hullPort = _ref.hullPort,
-    port = _ref.port,
-    endpoint = _ref.endpoint;
-  var callback =
-    arguments.length > 1 && arguments[1] !== undefined
-      ? arguments[1]
-      : function() {};
-
+function Mini({ segments, connector, hullPort, port, endpoint }, callback = () => {}) {
   try {
-    var minihull = new _minihull2.default();
+    const minihull = new _minihull2.default();
     minihull.listen(hullPort, callback);
     minihull.stubSegments(segments);
-    minihull.on("incoming.request@/api/v1/firehose", function(req) {
-      var response = req.body.batch.map(function(r) {
-        return (0, _extends3.default)({}, r, {
-          claims: _jwtSimple2.default.decode(
-            r.headers["Hull-Access-Token"],
-            "",
-            true
-          )
-        });
-      });
+    minihull.on("incoming.request@/api/v1/firehose", req => {
+      const response = req.body.batch.map(r => (0, _extends3.default)({}, r, {
+        claims: _jwtSimple2.default.decode(r.headers["Hull-Access-Token"], "", true)
+      }));
       console.log((0, _boxen2.default)("Received Firehose Payload"));
       console.log((0, _jsonColorizer2.default)(JSON.stringify(response)));
     });
 
-    minihull.userUpdate = function() {
-      var messages =
-        arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
+    minihull.userUpdate = (messages = []) => {
       console.log((0, _boxen2.default)("Sending update"));
       if (!_lodash2.default.isArray(messages)) {
-        throw new Error(
-          "The messages in userUpdate was not an array of users."
-        );
+        throw new Error("The messages in userUpdate was not an array of users.");
       }
-      console.log(
-        (0, _jsonColorizer2.default)(JSON.stringify(messages, null, 2))
-      );
-      minihull
-        .smartNotifyConnector(
-          connector,
-          "http://localhost:" + port + endpoint,
-          "user:update",
-          messages
-        )
-        .catch(function(e) {
-          console.log(e);
-          throw e;
-        });
+      console.log((0, _jsonColorizer2.default)(JSON.stringify(messages, null, 2)));
+      minihull.smartNotifyConnector(connector, `http://localhost:${port}${endpoint}`, "user:update", messages).catch(e => {
+        console.log(e);
+        throw e;
+      });
     };
     return minihull;
   } catch (e) {
