@@ -4,10 +4,12 @@ const _ = require('lodash');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const HappyPack = require('happypack');
+const TerserPlugin = require("terser-webpack-plugin");
 const moment = require('moment');
 
 const isProduction = () => process.env.NODE_ENV === 'production';
 
+let optimization = {};
 let plugins = [
   new HappyPack({
     id: 'jsx',
@@ -80,10 +82,17 @@ if (isProduction()) {
   plugins = [
     ...plugins,
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: { warnings: false, screw_ie8: false },
-    }),
   ];
+  optimization = {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          ie8: true
+        }
+      })
+    ],
+  }
 }
 
 const entry = _.reduce(
@@ -109,6 +118,8 @@ module.exports = {
     filename: '[name].js',
     publicPath: '/',
   },
+
+  optimization,
 
   plugins,
 

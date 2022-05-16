@@ -1,7 +1,7 @@
 {
   "name": "hull-connector",
   "description": "Hull Connector Archetype (Uses Builder)",
-  "version": "1.0.47",
+  "version": "1.0.48",
   "main": "dist/index.js",
   "license": "MIT",
   "homepage": "https://hull.io/docs",
@@ -87,7 +87,7 @@
     "exit-hook": "^1.1.1",
     "faker": "^4.1.0",
     "glob": "^7.1.6",
-    "happypack": "^4.0.1",
+    "happypack": "^5.0.1",
     "lint-staged": "^6.1.1",
     "lodash": "^4.17.21",
     "lodash-id": "^0.14.0",
@@ -100,11 +100,13 @@
     "shelljs": "^0.8.4",
     "style-loader": "^0.23.1",
     "svg-inline-loader": "^0.8.2",
-    "webpack": "^3.12",
+    "terser-webpack-plugin": "^4.2.3",
+    "webpack": "^4.46.0",
     "webpack-alternate-require-loader": "^0.0.3"
   },
   "devDependencies": {
     "npm-check": "^5.9.2",
-    "rimraf": "^2.7.1"
+    "rimraf": "^2.7.1",
+    "webpack-cli": "^4.9.2"
   }
 }
