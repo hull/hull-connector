@@ -76,7 +76,7 @@
     "moment": "^2.20.1",
     "ngrok": "^2.2.24",
     "nock": "^9.1.6",
-    "npm-check": "^5.5.2",
+    "npm-check": "^5.9.2",
     "prettier": "^1.9.2",
     "progress-bar-webpack-plugin": "^1.10.0",
     "react-dev-utils": "^4.2.1",
