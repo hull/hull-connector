@@ -60,7 +60,7 @@
     "exit-hook": "^1.1.1",
     "faker": "^4.1.0",
     "flow-bin": "^0.61.0",
-    "hull": "^0.13.24",
+    "hull": "^0.13.25",
     "inquirer": "^5.0.1",
     "jest": "^22.0.3",
     "json-colorizer": "^1.1.0",
