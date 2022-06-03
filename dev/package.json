@@ -38,18 +38,21 @@
   "dependencies": {
     "babel-register": "^6.26.0",
     "boxen": "^1.3.0",
-    "hull": "^0.13.26",
+    "hull": "^0.14.0",
     "inquirer": "^5.0.1",
     "json-colorizer": "^1.1.0",
     "jwt-simple": "^0.5.1",
     "lodash": "^4.17.4",
-    "minihull": "^2.1.0",
+    "minihull": "^3.0.2",
     "minimist": "^1.2.0",
     "moment": "^2.20.1",
     "newrelic": "7.5.2",
     "ngrok": "^4.3.1",
     "nock": "^9.1.6",
     "urijs": "^1.19.0"
+  },
+  "resolutions": {
+    "ngrok": "^4.3.1"
   },
   "devDependencies": {},
   "peerDependencies": {}
