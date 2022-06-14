@@ -74,8 +74,7 @@ let plugins = [
       BUILD_DATE: JSON.stringify(moment().format('MMMM, DD, YYYY, HH:mm:ss')),
       GIT_COMMIT: JSON.stringify(process.env.CIRCLE_SHA1 || ''),
     },
-  }),
-  new webpack.SourceMapDevToolPlugin({ filename: '[file].map' }),
+  })
 ];
 
 if (isProduction()) {
@@ -88,11 +87,14 @@ if (isProduction()) {
     minimizer: [
       new TerserPlugin({
         terserOptions: {
-          ie8: true
+          ie8: true,
+          sourceMap: { filename: '[file].map' }
         }
       })
     ],
   }
+} else {
+  plugins.push(new webpack.SourceMapDevToolPlugin({ filename: '[file].map' }));
 }
 
 const entry = _.reduce(
@@ -137,14 +139,14 @@ module.exports = {
       {
         test: /\.jsx|\.js$/,
         loader: require.resolve('happypack/loader'),
-        query: { id: 'jsx' },
+        options: { id: 'jsx' },
         exclude: /node_modules/,
       },
       // styles
       {
         test: /\.(css|scss)$/,
         loader: require.resolve('happypack/loader'),
-        query: { id: 'styles' },
+        options: { id: 'styles' },
       },
       // svg
       { test: /.svg$/, loader: 'svg-inline-loader' },
