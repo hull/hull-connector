@@ -102,7 +102,7 @@
     "lodash-id": "^0.14.0",
     "mini-application": "^1.1.1",
     "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-loader": "^4.2.0",
+    "postcss-loader": "^7.2.4",
     "sass-loader": "^13.0.0",
     "shelljs": "^0.8.4",
     "style-loader": "^0.23.1",
